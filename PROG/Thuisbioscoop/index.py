@@ -1,6 +1,6 @@
 import csv
 from flask import Flask, render_template, url_for, flash, redirect
-from forms import RegisterForm, LoginForm
+from forms import RegisterForm, LoginForm, CreateAccountForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cecff03f1509d881852c2a9d84276214'
@@ -21,7 +21,7 @@ def login():
             for row in rows:
                 if row['email'] == form.email.data and row['password'] == form.password.data:
                     flash('You have been logged in!', 'success')
-                    return redirect(url_for('home'))
+                    return redirect('accounts')
         flash('No valid user and password!', 'danger')
 
     return render_template('login.html', form=form)
@@ -42,6 +42,24 @@ def register():
     return render_template('register.html', form=form)
 
 
+# TODO NICE TEMPLATE
+@app.route('/accounts')
+def accounts():
+    accounts = get_user_accounts()   # TODO with id or mail?
+    return render_template('accounts.html', accounts=accounts)
+
+
+# TODO NICE TEMPLATE
+@app.route('/account/create', methods=['GET', 'POST'])
+def create_account():
+    form = CreateAccountForm()
+    if form.validate_on_submit():
+        create_user_account(form.name.data)
+        flash('New account sucsefuly created!', 'success')
+        return redirect(url_for('accounts'))
+    return render_template('create_account.html', form=form)
+
+
 def check_user_exists(email):
     with open("db/users.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
@@ -55,6 +73,25 @@ def check_user_exists(email):
 def create_user(username, email, password):
     with open('db/users.csv', 'a', newline='') as myCSVFile:
         fieldnames = ['username', 'email', 'password']
-        writer = csv.DictWriter(myCSVFile, fieldnames=fieldnames)
+        writer = csv.DictWriter(myCSVFile, fieldnames=fieldnames, delimiter=';')
         writer.writerow({'username': username, 'email': email, 'password': password})
+        create_user_account(username)
+        return True
+
+
+def get_user_accounts():  # TODO with id or mail?
+    accounts = []
+    with open("db/user_accounts.csv", 'r') as myCSVFile:
+        rows = csv.DictReader(myCSVFile, delimiter=';')
+        for row in rows:
+            # if row['email'] == email: # TODO with id or mail?
+            accounts.append(row)
+    return accounts
+
+
+def create_user_account(name):  # TODO with id or mail?
+    with open('db/user_accounts.csv', 'a', newline='') as myCSVFile:
+        fieldnames = ['name', 'date_of_birth']
+        writer = csv.DictWriter(myCSVFile, fieldnames=fieldnames, delimiter=';')
+        writer.writerow({'name': name, 'date_of_birth': ''}) # TODO DATE OF BIRTH
         return True
