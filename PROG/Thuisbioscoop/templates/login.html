@@ -40,21 +40,36 @@
 						<img src="../static/images/avatar-01.jpg" alt="AVATAR">
 					</span>
 
-					<div class="wrap-input100 validate-input m-t-85 m-b-35" data-validate = "Enter username">
-						<input class="input100" type="text" name="username">
-						<span class="focus-input100" data-placeholder="Username"></span>
+					<div class="form-group">
+						{{ form.email.label(class="form-control-label") }}
+
+						{% if form.email.errors %}
+							{{ form.email(class="form-control form-control-lg is-invalid", placeholder="email") }}
+							<div class="invalid-feedback">
+								{% for error in form.email.errors %}
+									<span>{{ error }}</span>
+								{% endfor %}
+							</div>
+						{% else %}
+						   {{ form.email(class="form-control form-control-lg") }}
+						{% endif %}
 					</div>
 
-					<div class="wrap-input100 validate-input m-b-50" data-validate="Enter password">
-						<input class="input100" type="password" name="pass">
-						<span class="focus-input100" data-placeholder="Password"></span>
-					</div>
+					<!--<div class="wrap-input100 validate-input m-t-85 m-b-35" data-validate = "Enter username">-->
+						<!--<input class="input100" type="text" name="Email">-->
+						<!--<span class="focus-input100" data-placeholder="Email"></span>-->
+					<!--</div>-->
 
-					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
-							Login
-						</button>
-					</div>
+					<!--<div class="wrap-input100 validate-input m-b-50" data-validate="Enter password">-->
+						<!--<input class="input100" type="password" name="pass">-->
+						<!--<span class="focus-input100" data-placeholder="Password"></span>-->
+					<!--</div>-->
+
+					<!--<div class="container-login100-form-btn">-->
+						<!--<button class="login100-form-btn">-->
+							<!--Login-->
+						<!--</button>-->
+					<!--</div>-->
 
 					<ul class="login-more p-t-190">
 						<li class="m-b-8">
