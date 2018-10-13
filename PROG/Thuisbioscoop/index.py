@@ -27,6 +27,33 @@ def login():
     return render_template('login.html', form=form)
 
 
-@app.route("/register")
+@app.route("/register", methods=['GET', 'POST'])
 def register():
-    return render_template('register.html')
+    form = RegisterForm()
+    if form.validate_on_submit():
+        user = check_user_exists(form.email.data)
+        if user is False:
+            create_user(form.username.data, form.email.data, form.password.data)
+            flash('Account added!', 'success')
+        else:
+            flash('This mail address is already in use', 'danger')
+
+    return render_template('register.html', form=form)
+
+
+def check_user_exists(email):
+    with open("db/users.csv", 'r') as myCSVFile:
+        rows = csv.DictReader(myCSVFile, delimiter=';')
+        print(rows)
+        for row in rows:
+            if row['email'] == email:
+                return row
+    return False
+
+
+def create_user(username, email, password):
+    with open('db/users.csv', 'a', newline='') as myCSVFile:
+        fieldnames = ['username', 'email', 'password']
+        writer = csv.DictWriter(myCSVFile, fieldnames=fieldnames)
+        writer.writerow({'username': username, 'email': email, 'password': password})
+        return True
