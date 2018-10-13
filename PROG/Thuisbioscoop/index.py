@@ -35,6 +35,7 @@ def register():
         if user is False:
             create_user(form.username.data, form.email.data, form.password.data)
             flash('Account added!', 'success')
+            return redirect(url_for('login'))
         else:
             flash('This mail address is already in use', 'danger')
 
