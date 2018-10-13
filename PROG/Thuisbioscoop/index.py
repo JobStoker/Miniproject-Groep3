@@ -11,9 +11,16 @@ def home():
     return render_template('home.html')
 
 
-@app.route("/login")
+@app.route("/login", methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')
+    form = LoginForm()
+    if form.validate_on_submit():
+        if form.email.data == 'test@test.nl' and form.password.data == 'tesa':
+            flash('You have been logged in!', 'success')
+            return redirect(url_for('hello'))
+        else:
+            flash('No valid user and password!', 'danger')
+    return render_template('login.html', form=form)
 
 
 @app.route("/register")
