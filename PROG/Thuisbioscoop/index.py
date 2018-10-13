@@ -1,3 +1,4 @@
+import csv
 from flask import Flask, render_template, url_for, flash, redirect
 from forms import RegisterForm, LoginForm
 
@@ -15,11 +16,14 @@ def home():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        if form.email.data == 'test@test.nl' and form.password.data == 'tesa':
-            flash('You have been logged in!', 'success')
-            return redirect(url_for('hello'))
-        else:
-            flash('No valid user and password!', 'danger')
+        with open("db/users.csv", 'r') as myCSVFile:
+            rows = csv.DictReader(myCSVFile, delimiter=';')
+            for row in rows:
+                if row['email'] == form.email.data and row['password'] == form.password.data:
+                    flash('You have been logged in!', 'success')
+                    return redirect(url_for('home'))
+        flash('No valid user and password!', 'danger')
+
     return render_template('login.html', form=form)
 
 
