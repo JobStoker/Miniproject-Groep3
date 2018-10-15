@@ -1,7 +1,19 @@
 {% extends "layout/layout.html" %}
 
 {% block content %}
-    {% for movie in movies['filmsoptv']['film'] %}
-            <h1>{{  movie['titel']  }}</h1>
-    {%  endfor %}
+    <div class="col-md-4">
+        {% for movie in movies['filmsoptv']['film'] %}
+            <div class="card mb-4">
+                <img class="card-img-top" src={{ movie['cover'] }}>
+                <div class="card-body">
+                  <h2 class="card-title">{{  movie['titel']  }}</h2>
+                  <p class="card-text">{{  movie['synopsis'] }}</p>
+                  <a href="#" class="btn btn-primary">Bied aan</a>
+                </div>
+                <div class="card-footer text-muted">
+                  {{ movie['zender'] }}
+                </div>
+            </div>
+        {%  endfor %}
+    </div>
 {% endblock %}
