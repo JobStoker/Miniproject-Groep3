@@ -1,10 +1,19 @@
-import csv
-from flask import Flask, render_template, url_for, flash, redirect
+from flask import Flask, render_template, url_for, flash, redirect, session
 from forms import RegisterForm, LoginForm, CreateAccountForm
+import csv
+import requests
+import xmltodict
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cecff03f1509d881852c2a9d84276214'
+SESSION_TYPE = 'redis'
+app.config.from_object(__name__)
 
+
+def check_auth():
+    if 'logged_in' not in session or not session['logged_in']:
+        flash("you don't have premision to do that")
+        return redirect('home')
 
 # URL routes
 @app.route("/")
@@ -20,6 +29,8 @@ def login():
             rows = csv.DictReader(myCSVFile, delimiter=';')
             for row in rows:
                 if row['email'] == form.email.data and row['password'] == form.password.data:
+                    session['user_id'] = row['id']
+                    session['logged_in'] = True
                     flash('You have been logged in!', 'success')
                     return redirect('accounts')
         flash('No valid user and password!', 'danger')
@@ -45,19 +56,45 @@ def register():
 # TODO NICE TEMPLATE
 @app.route('/accounts')
 def accounts():
-    accounts = get_user_accounts()   # TODO with id or mail?
-    return render_template('accounts.html', accounts=accounts)
+    check_auth()
+    return render_template('accounts.html', accounts=get_user_accounts())
 
 
 # TODO NICE TEMPLATE
 @app.route('/account/create', methods=['GET', 'POST'])
 def create_account():
+    check_auth()
     form = CreateAccountForm()
     if form.validate_on_submit():
         create_user_account(form.name.data)
         flash('New account sucsefuly created!', 'success')
         return redirect(url_for('accounts'))
     return render_template('create_account.html', form=form)
+
+
+# TODO WEERGAVE
+@app.route('/movies')
+def movies():
+    check_auth()
+    movies = get_movies()
+    return render_template('movies.html', movies=movies)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def check_user_exists(email):
@@ -72,26 +109,47 @@ def check_user_exists(email):
 
 def create_user(username, email, password):
     with open('db/users.csv', 'a', newline='') as myCSVFile:
-        fieldnames = ['username', 'email', 'password']
+        fieldnames = ['id', 'username', 'email', 'password']
         writer = csv.DictWriter(myCSVFile, fieldnames=fieldnames, delimiter=';')
-        writer.writerow({'username': username, 'email': email, 'password': password})
+        writer.writerow({'id': find_next_id('users'), 'username': username, 'email': email, 'password': password})
         create_user_account(username)
         return True
 
 
-def get_user_accounts():  # TODO with id or mail?
+def get_user_accounts():
     accounts = []
     with open("db/user_accounts.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
         for row in rows:
-            # if row['email'] == email: # TODO with id or mail?
-            accounts.append(row)
+            if row['user_id'] == session['user_id']:
+                accounts.append(row)
     return accounts
 
 
-def create_user_account(name):  # TODO with id or mail?
+def create_user_account(name):
     with open('db/user_accounts.csv', 'a', newline='') as myCSVFile:
-        fieldnames = ['name', 'date_of_birth']
+        fieldnames = ['id', 'name', 'user_id', 'date_of_birth']
         writer = csv.DictWriter(myCSVFile, fieldnames=fieldnames, delimiter=';')
-        writer.writerow({'name': name, 'date_of_birth': ''}) # TODO DATE OF BIRTH
+        writer.writerow({
+            'id': find_next_id('user_accounts'),
+            'name': name,
+            'user_id': session['user_id'],
+            'date_of_birth': ''
+        })  # TODO DATE OF BIRTH
         return True
+
+
+def find_next_id(filename):
+    with open("db/" + str(filename) + ".csv") as myCSVFile:
+        lines = myCSVFile.readlines()
+        if len(lines) <= 1:
+            return 1
+        last_line = lines[len(lines) - 1]
+        return int(last_line.split(';')[0]) + 1
+
+
+def get_movies():
+    api_url = 'http://api.filmtotaal.nl/filmsoptv.xml?apikey=5r8gfozevu90kas5jb9r0vqksqweujrx&dag=14-10-2018&sorteer=0'
+    response = requests.get(api_url)
+    xml = xmltodict.parse(response.text)
+    return xml

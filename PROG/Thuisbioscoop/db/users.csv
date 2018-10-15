@@ -1,2 +1,3 @@
-username;email;password
-test123t;test@test.nl;test123
+id;username;email;password
+1;test123t;test@test.nl;test123
+
