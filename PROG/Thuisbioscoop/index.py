@@ -81,6 +81,11 @@ def movies():
     return render_template('movies.html', movies=get_movies())
 
 
+@app.route('/movies/<id>')
+def addmovie(id):
+    check_auth()
+
+    return render_template('addmovie.html', movie=get_movie(id))
 
 
 
@@ -153,3 +158,9 @@ def get_movies():
     api_url = 'http://api.filmtotaal.nl/filmsoptv.xml?apikey=5r8gfozevu90kas5jb9r0vqksqweujrx&dag=' + datetime.datetime.today().strftime('%d-%m-%Y') + '&sorteer=0'
     response = requests.get(api_url)
     return xmltodict.parse(response.text)
+
+def get_movie(id):
+    movies = get_movies()
+    for i in movies['filmsoptv']['film']:
+        if i['imdb_id'] == id:
+            return i

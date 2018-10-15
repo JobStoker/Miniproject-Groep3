@@ -8,7 +8,7 @@
                 <div class="card-body">
                   <h2 class="card-title">{{  movie['titel']  }}</h2>
                   <p class="card-text">{{  movie['synopsis'] }}</p>
-                  <a href="#" class="btn btn-primary">Bied aan</a>
+                  <a href="/movies/{{ movie['imdb_id'] }}" class="btn btn-primary">Bied aan</a>
                 </div>
                 <div class="card-footer text-muted">
                   {{ movie['zender'] }}
