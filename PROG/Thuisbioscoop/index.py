@@ -4,6 +4,7 @@ import csv
 import requests
 import xmltodict
 import datetime
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cecff03f1509d881852c2a9d84276214'
@@ -79,14 +80,27 @@ def create_account():
 @app.route('/movies')
 def movies():
     check_auth()
-    return render_template('movies.html', movies=get_movies())
+    if int(get_active_user()['type_id']) == 1:
+        return render_template('user_movies.html', movies=get_user_movies())
+    elif int(get_active_user()['type_id']) == 2:
+        return render_template('movies.html', movies=get_movies())
+    else:
+        print('error')
+        # TODO 404 error
 
 
-@app.route('/movies/<movie_imdb_id>', methods=['GET', 'POST'])
+@app.route('/movies/<movie_imdb_id>')
 def add_movie(movie_imdb_id):
     check_auth()
-    create_provided_movie(movie_imdb_id)
-    return render_template('addmovie.html', movie=get_movie(movie_imdb_id))
+    if int(get_active_user()['type_id']) == 1:
+        print('xxx')  # TODO MAKE RESERVATION!!!
+        return 'TODO'
+    elif int(get_active_user()['type_id']) == 2:
+        create_provided_movie(movie_imdb_id)  # TODO Check if realy instat aanbieden
+        return render_template('addmovie.html', movie=get_movie(movie_imdb_id))
+    else:
+        print('error')
+        # TODO 404 error
 
 
 
@@ -98,9 +112,14 @@ def add_movie(movie_imdb_id):
 
 
 
-
-
-
+def get_user_movies():
+    accounts = []
+    with open("db/provider_list.csv", 'r') as myCSVFile:
+        rows = csv.DictReader(myCSVFile, delimiter=';')
+        for row in rows:
+            # if row['user_id'] == session['user_id']: # TODO RULES only movies today ect....
+            accounts.append(row)
+        return accounts
 
 
 def get_active_user():
@@ -133,11 +152,17 @@ def check_user_exists(email):
 
 def create_user(username, email, password):
     with open('db/users.csv', 'a', newline='') as myCSVFile:
-        fieldnames = ['id', 'username', 'email', 'password']
+        fieldnames = ['id', 'username', 'email', 'password', 'type_id']
         writer = csv.DictWriter(myCSVFile, fieldnames=fieldnames, delimiter=';')
-        writer.writerow({'id': find_next_id('users'), 'username': username, 'email': email, 'password': password})
+        writer.writerow({
+            'id': find_next_id('users'),
+            'username': username,
+            'email': email,
+            'password': password,
+            'type_id': 1  # TODO Type_id for providers
+        })
         create_user_account(username)
-        return True
+    return True
 
 
 def get_user_accounts():
@@ -159,7 +184,7 @@ def create_user_account(name):
             'name': name,
             'user_id': session['user_id'],
             'date_of_birth': ''
-        })  # TODO DATE OF BIRTH
+        })  # TODO DATE OF BIRTH if needed idk if we want to do this or anything like this
         return True
 
 

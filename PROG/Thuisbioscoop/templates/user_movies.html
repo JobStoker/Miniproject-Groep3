@@ -1,0 +1,19 @@
+{% extends "layout/layout.html" %}
+
+{% block content %}
+    <div class="col-md-4">
+        {% for movie in movies %}
+            <div class="card mb-4">
+                <img class="card-img-top" src={{ movie['cover'] }}>
+                <div class="card-body">
+                  <h2 class="card-title">{{  movie['titel']  }}</h2>
+                  <p class="card-text">{{  movie['synopsis'] }}</p>
+                  <a href="/movies/{{ movie['imdb_id'] }}" class="btn btn-primary">Reserveer</a>
+                </div>
+                <div class="card-footer text-muted">
+                  {{ movie['zender'] }}
+                </div>
+            </div>
+        {%  endfor %}
+    </div>
+{% endblock %}
