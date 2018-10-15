@@ -59,7 +59,8 @@ def register():
 @app.route('/accounts')
 def accounts():
     check_auth()
-    return render_template('accounts.html', accounts=get_user_accounts())
+    user_accounts = get_user_accounts()
+    return render_template('accounts.html', accounts=user_accounts, account_count=len(user_accounts))
 
 
 # TODO NICE TEMPLATE
