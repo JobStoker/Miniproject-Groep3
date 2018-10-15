@@ -79,7 +79,7 @@ def create_account():
 @app.route('/movies')
 def movies():
     check_auth()
-    return render_template('movies.html', movies=get_movies())
+    return render_template('movies.html', movies=get_free_movies())
 
 
 @app.route('/movies/<movie_imdb_id>', methods=['GET', 'POST'])
@@ -218,3 +218,15 @@ def create_provided_movie(movie_imdb_id):
             'filmtip': movie['filmtip']
         })
     return True
+
+def get_free_movies():
+    movies = get_movies()
+    non_provided_movies = {}
+    #imdb_id = map(lambda x : x)
+    with open("db/provider_list.csv", 'r') as myCSVFile:
+        rows = csv.DictReader(myCSVFile, delimiter=';')
+        for row in rows:
+            if row['imdb_id'] not in imdb_id:
+                non_provided_movies['film'] = movies['filmsoptv']['film']
+        return non_provided_movies
+
