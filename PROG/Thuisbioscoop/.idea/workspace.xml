@@ -2,120 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db2c7d44-c7a3-446a-beb1-924e1b4e11fd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/db/user_accounts.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/db/users.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/css/auth.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/accounts.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/create_account.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/movies.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/index.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/main.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/util.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/HELP-US-OUT.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/css/font-awesome.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/css/font-awesome.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/fonts/FontAwesome.otf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/less/animated.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/less/bordered-pulled.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/less/core.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/less/fixed-width.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/less/font-awesome.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/less/icons.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/less/larger.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/less/list.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/less/mixins.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/less/path.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/less/rotated-flipped.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/less/screen-reader.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/less/stacked.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/less/variables.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/scss/_animated.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/scss/_bordered-pulled.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/scss/_core.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/scss/_fixed-width.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/scss/_icons.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/scss/_larger.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/scss/_list.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/scss/_mixins.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/scss/_path.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/scss/_rotated-flipped.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/scss/_screen-reader.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/scss/_stacked.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/scss/_variables.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/font-awesome-4.7.0/scss/font-awesome.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/iconic/css/material-design-iconic-font.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/iconic/css/material-design-iconic-font.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/iconic/fonts/Material-Design-Iconic-Font.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/iconic/fonts/Material-Design-Iconic-Font.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/iconic/fonts/Material-Design-Iconic-Font.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/iconic/fonts/Material-Design-Iconic-Font.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/iconic/fonts/Material-Design-Iconic-Font.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/poppins/Poppins-Black.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/poppins/Poppins-BlackItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/poppins/Poppins-Bold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/poppins/Poppins-BoldItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/poppins/Poppins-ExtraBold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/poppins/Poppins-ExtraBoldItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/poppins/Poppins-ExtraLight.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/poppins/Poppins-ExtraLightItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/poppins/Poppins-Italic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/poppins/Poppins-Light.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/poppins/Poppins-LightItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/poppins/Poppins-Medium.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/poppins/Poppins-MediumItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/poppins/Poppins-Regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/poppins/Poppins-SemiBold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/poppins/Poppins-SemiBoldItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/poppins/Poppins-Thin.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/poppins/Poppins-ThinItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/avatar-01.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/icons/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/animate/animate.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/animsition/css/animsition.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/animsition/css/animsition.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/animsition/js/animsition.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/animsition/js/animsition.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap-grid.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap-grid.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap-grid.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap-grid.min.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap-reboot.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap-reboot.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap-reboot.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap-reboot.min.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap.min.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/bootstrap/js/bootstrap.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/bootstrap/js/bootstrap.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/bootstrap/js/popper.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/bootstrap/js/popper.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/bootstrap/js/tooltip.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/countdowntime/countdowntime.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/css-hamburgers/hamburgers.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/css-hamburgers/hamburgers.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/daterangepicker/daterangepicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/daterangepicker/daterangepicker.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/daterangepicker/moment.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/daterangepicker/moment.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/jquery/jquery-3.2.1.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/perfect-scrollbar/perfect-scrollbar.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/perfect-scrollbar/perfect-scrollbar.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/select2/select2.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/select2/select2.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/select2/select2.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/vendor/select2/select2.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/movies.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/movies.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -124,63 +13,74 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Thuisbioscoop$Thuisbioscoop.coverage" NAME="Thuisbioscoop Coverage Results" MODIFIED="1539524163652" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Thuisbioscoop$Flask__index_py_.coverage" NAME="Flask (index.py) Coverage Results" MODIFIED="1539607821463" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Thuisbioscoop$Thuisbioscoop.coverage" NAME="Thuisbioscoop Coverage Results" MODIFIED="1539606930613" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-2010367578">
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="html" value="7" />
-          <entry key="py" value="8" />
+          <entry key="html" value="8" />
+          <entry key="py" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="HTML" value="7" />
-          <entry key="Python" value="8" />
+          <entry key="HTML" value="8" />
+          <entry key="Python" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="69" />
-          <entry key="py" value="169" />
+          <entry key="html" value="297" />
+          <entry key="py" value="270" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="69" />
-          <entry key="Python" value="169" />
+          <entry key="HTML" value="297" />
+          <entry key="Python" value="270" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
         <counts>
           <entry key="project.closed" value="2" />
           <entry key="project.open.time.0" value="2" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.3" value="1" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="65" column="22" lean-forward="true" selection-start-line="65" selection-start-column="22" selection-end-line="65" selection-end-column="22" />
+            <state relative-caret-position="24">
+              <caret line="68" column="25" selection-start-line="68" selection-start-column="25" selection-end-line="68" selection-end-column="25" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
-                <marker date="1539524397431" expanded="true" signature="3476:3477" ph="..." />
+                <marker date="1539607759468" expanded="true" signature="3493:3494" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/layout/layout.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="230">
+              <caret line="23" column="26" lean-forward="true" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/movies.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="14" lean-forward="true" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
+            <state relative-caret-position="51">
+              <caret line="3" column="34" selection-start-line="3" selection-start-column="34" selection-end-line="3" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -211,8 +111,8 @@
       <list>
         <option value="$PROJECT_DIR$/forms.py" />
         <option value="$PROJECT_DIR$/templates/login.html" />
-        <option value="$PROJECT_DIR$/templates/movies.html" />
         <option value="$PROJECT_DIR$/index.py" />
+        <option value="$PROJECT_DIR$/templates/movies.html" />
       </list>
     </option>
   </component>
@@ -223,8 +123,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="-39" />
+    <option name="y" value="216" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -234,6 +134,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -246,17 +147,22 @@
               <item name="Thuisbioscoop" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Thuisbioscoop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Thuisbioscoop" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="layout" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../ProgrammingCourseHU" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -270,7 +176,25 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Flask server.Flask (index.py)">
+    <configuration name="movies.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Thuisbioscoop/templates/movies.html">
+      <method v="2" />
+    </configuration>
+    <configuration name="Flask (index.py)" type="Python.FlaskServer" factoryName="Flask server" temporary="true" nameIsGenerated="true">
+      <module name="Thuisbioscoop" />
+      <option name="target" value="$PROJECT_DIR$/index.py" />
+      <option name="targetType" value="PATH" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
     <configuration name="Thuisbioscoop" type="Python.FlaskServer" factoryName="Flask server">
       <module name="Thuisbioscoop" />
       <option name="target" value="$PROJECT_DIR$/index.py" />
@@ -286,6 +210,17 @@
       <option name="launchJavascriptDebuger" value="false" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Flask server.Thuisbioscoop" />
+      <item itemvalue="JavaScript Debug.movies.html" />
+      <item itemvalue="Flask server.Flask (index.py)" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Flask server.Flask (index.py)" />
+        <item itemvalue="JavaScript Debug.movies.html" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -304,7 +239,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2553305" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25799572" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -335,9 +270,6 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/templates/layout.html" />
-    <entry file="file://$PROJECT_DIR$/templates/layout/layout.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/login.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -361,21 +293,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/movies.html">
+    <entry file="file://$PROJECT_DIR$/templates/layout/layout.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="14" lean-forward="true" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
+        <state relative-caret-position="230">
+          <caret line="23" column="26" lean-forward="true" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="65" column="22" lean-forward="true" selection-start-line="65" selection-start-column="22" selection-end-line="65" selection-end-column="22" />
+        <state relative-caret-position="24">
+          <caret line="68" column="25" selection-start-line="68" selection-start-column="25" selection-end-line="68" selection-end-column="25" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <marker date="1539524397431" expanded="true" signature="3476:3477" ph="..." />
+            <marker date="1539607759468" expanded="true" signature="3493:3494" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/movies.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="34" selection-start-line="3" selection-start-column="34" selection-end-line="3" selection-end-column="34" />
         </state>
       </provider>
     </entry>

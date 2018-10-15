@@ -1,8 +1,7 @@
 {% extends "layout/layout.html" %}
 
 {% block content %}
-    {{ movies }}
-    {% for movie in movies %}
-        <h1>{{  movie }}</h1>
+    {% for movie in movies['filmsoptv']['film'] %}
+            <h1>{{  movie['titel']  }}</h1>
     {%  endfor %}
 {% endblock %}

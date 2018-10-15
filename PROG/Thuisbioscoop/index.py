@@ -3,6 +3,7 @@ from forms import RegisterForm, LoginForm, CreateAccountForm
 import csv
 import requests
 import xmltodict
+import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cecff03f1509d881852c2a9d84276214'
@@ -76,8 +77,7 @@ def create_account():
 @app.route('/movies')
 def movies():
     check_auth()
-    movies = get_movies()
-    return render_template('movies.html', movies=movies)
+    return render_template('movies.html', movies=get_movies())
 
 
 
@@ -149,7 +149,6 @@ def find_next_id(filename):
 
 
 def get_movies():
-    api_url = 'http://api.filmtotaal.nl/filmsoptv.xml?apikey=5r8gfozevu90kas5jb9r0vqksqweujrx&dag=14-10-2018&sorteer=0'
+    api_url = 'http://api.filmtotaal.nl/filmsoptv.xml?apikey=5r8gfozevu90kas5jb9r0vqksqweujrx&dag=' + datetime.datetime.today().strftime('%d-%m-%Y') + '&sorteer=0'
     response = requests.get(api_url)
-    xml = xmltodict.parse(response.text)
-    return xml
+    return xmltodict.parse(response.text)
