@@ -7,7 +7,9 @@
         </div>
     {% endfor %}
 
-    <div class="row">
-        <a href="{{ url_for('create_account') }}">Nieuwe</a>
-    </div>
+    {% if account_count < 5 %}
+        <div class="row">
+            <a href="{{ url_for('create_account') }}">Nieuwe</a>
+        </div>
+    {% endif %}
 {% endblock %}
