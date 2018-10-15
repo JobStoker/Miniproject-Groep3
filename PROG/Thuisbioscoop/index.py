@@ -165,3 +165,11 @@ def get_movie(id):
     for i in movies['filmsoptv']['film']:
         if i['imdb_id'] == id:
             return i
+
+def create_provided_list(id):
+    with open('db/provider_list.csv', 'a', newline='') as myCSVFile:
+        fieldnames = ['id', 'imdb_id']
+        writer = csv.DictWriter(myCSVFile, fieldnames=fieldnames, delimiter=';')
+        writer.writerow({'id': find_next_id('users'), 'username': username, 'email': email, 'password': password})
+        create_user_account(username)
+        return True
