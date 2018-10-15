@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db2c7d44-c7a3-446a-beb1-924e1b4e11fd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/movies.csv" beforeDir="false" afterPath="$PROJECT_DIR$/db/provider_list.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/index.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,13 +33,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="html" value="455" />
-          <entry key="py" value="532" />
+          <entry key="py" value="578" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="HTML" value="455" />
-          <entry key="Python" value="532" />
+          <entry key="Python" value="578" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
@@ -59,13 +57,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="174" column="19" lean-forward="true" selection-start-line="174" selection-start-column="19" selection-end-line="174" selection-end-column="19" />
+            <state relative-caret-position="349">
+              <caret line="185" lean-forward="true" selection-start-line="185" selection-end-line="185" />
               <folding>
                 <element signature="e#0#75#0" expanded="true" />
-                <marker date="1539627652094" expanded="true" signature="4708:4709" ph="..." />
-                <marker date="1539627652094" expanded="true" signature="4708:4713" ph="..." />
-                <marker date="1539627652094" expanded="true" signature="4833:4834" ph="..." />
+                <marker date="1539627876074" expanded="true" signature="5246:5247" ph="..." />
+                <marker date="1539627876074" expanded="true" signature="5246:5251" ph="..." />
+                <marker date="1539627876074" expanded="true" signature="5374:5375" ph="..." />
               </folding>
             </state>
           </provider>
@@ -319,13 +317,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/movies.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="14" selection-start-line="2" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/addmovie.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -336,15 +327,22 @@
     <entry file="file://$PROJECT_DIR$/db/provider_list.csv">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/movies.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="14" selection-start-line="2" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="174" column="19" lean-forward="true" selection-start-line="174" selection-start-column="19" selection-end-line="174" selection-end-column="19" />
+        <state relative-caret-position="349">
+          <caret line="185" lean-forward="true" selection-start-line="185" selection-end-line="185" />
           <folding>
             <element signature="e#0#75#0" expanded="true" />
-            <marker date="1539627652094" expanded="true" signature="4708:4709" ph="..." />
-            <marker date="1539627652094" expanded="true" signature="4708:4713" ph="..." />
-            <marker date="1539627652094" expanded="true" signature="4833:4834" ph="..." />
+            <marker date="1539627876074" expanded="true" signature="5246:5247" ph="..." />
+            <marker date="1539627876074" expanded="true" signature="5246:5251" ph="..." />
+            <marker date="1539627876074" expanded="true" signature="5374:5375" ph="..." />
           </folding>
         </state>
       </provider>

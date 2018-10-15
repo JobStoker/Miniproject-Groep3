@@ -85,7 +85,8 @@ def movies():
 @app.route('/movies/<id>')
 def addmovie(id):
     check_auth()
-
+    movie = get_movies()
+    create_provided_list(movie)
     return render_template('addmovie.html', movie=get_movie(id))
 
 
@@ -183,7 +184,7 @@ def get_movie(id):
         if i['imdb_id'] == id:
             return i
 
-def create_provided_list(id):
+def create_provided_list(movie):
     with open('db/provider_list.csv', 'a', newline='') as myCSVFile:
         fieldnames = ['id', 'imdb_id']
         writer = csv.DictWriter(myCSVFile, fieldnames=fieldnames, delimiter=';')
