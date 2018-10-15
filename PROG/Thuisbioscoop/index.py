@@ -14,7 +14,8 @@ app.config.from_object(__name__)
 def check_auth():
     if 'logged_in' not in session or not session['logged_in']:
         flash("you don't have premision to do that")
-        return redirect('home')
+        return redirect(url_for('home'))
+
 
 # URL routes
 @app.route("/")
