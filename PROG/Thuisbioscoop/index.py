@@ -103,6 +103,23 @@ def addmovie(id):
 
 
 
+def get_active_user():
+    with open("db/users.csv", 'r') as myCSVFile:
+        rows = csv.DictReader(myCSVFile, delimiter=';')
+        for row in rows:
+            if row['id'] == session['user_id']:
+                return row
+    return False
+
+
+def get_user(user_id):
+    with open("db/users.csv", 'r') as myCSVFile:
+        rows = csv.DictReader(myCSVFile, delimiter=';')
+        for row in rows:
+            if row['id'] == user_id:
+                return row
+    return False
+
 
 def check_user_exists(email):
     with open("db/users.csv", 'r') as myCSVFile:
