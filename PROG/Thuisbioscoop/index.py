@@ -82,11 +82,11 @@ def movies():
     return render_template('movies.html', movies=get_movies())
 
 
-@app.route('/movies/<id>')
-def addmovie(id):
+@app.route('/movies/<movie_imdb_id>', methods=['GET', 'POST'])
+def add_movie(movie_imdb_id):
     check_auth()
-
-    return render_template('addmovie.html', movie=get_movie(id))
+    create_provided_movie(movie_imdb_id)
+    return render_template('addmovie.html', movie=get_movie(movie_imdb_id))
 
 
 
@@ -177,8 +177,44 @@ def get_movies():
     response = requests.get(api_url)
     return xmltodict.parse(response.text)
 
-def get_movie(id):
+
+def get_movie(movie_imdb_id):
     movies = get_movies()
-    for i in movies['filmsoptv']['film']:
-        if i['imdb_id'] == id:
-            return i
+    for movie in movies['filmsoptv']['film']:
+        if movie['imdb_id'] == movie_imdb_id:
+            return movie
+
+
+def create_provided_movie(movie_imdb_id):
+    movie = get_movie(movie_imdb_id)
+    with open('db/provider_list.csv', 'a', newline='') as myCSVFile:
+        fieldnames = ['id', 'user_id', 'ft_link', 'titel', 'jaar', 'regisseur', 'cast', 'genre', 'land', 'cover',
+                      'tagline', 'duur', 'synopsis', 'ft_rating', 'ft_votes', 'imdb_id', 'imdb_rating',
+                      'imdb_votes', 'starttijd', 'eindtijd', 'zender', 'filmtip']
+        writer = csv.DictWriter(myCSVFile, fieldnames=fieldnames, delimiter=';')
+
+        writer.writerow({
+            'id': find_next_id('provider_list'),
+            'user_id': session['user_id'],
+            'ft_link': movie['ft_link'],
+            'titel': movie['titel'],
+            'jaar': movie['jaar'],
+            'regisseur': movie['regisseur'],
+            'cast': movie['cast'],
+            'genre': movie['genre'],
+            'land': movie['land'],
+            'cover': movie['cover'],
+            'tagline': movie['tagline'],
+            'duur': movie['duur'],
+            'synopsis': movie['synopsis'],
+            'ft_rating': movie['ft_rating'],
+            'ft_votes': movie['ft_votes'],
+            'imdb_id': movie['imdb_id'],
+            'imdb_rating': movie['imdb_rating'],
+            'imdb_votes': movie['imdb_votes'],
+            'starttijd': movie['starttijd'],
+            'eindtijd': movie['eindtijd'],
+            'zender': movie['zender'],
+            'filmtip': movie['filmtip']
+        })
+    return True
