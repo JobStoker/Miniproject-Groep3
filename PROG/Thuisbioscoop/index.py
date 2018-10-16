@@ -1,10 +1,12 @@
 from flask import Flask, render_template, url_for, flash, redirect, session
 from forms import RegisterForm, LoginForm, CreateAccountForm
+from werkzeug.security import generate_password_hash
 import csv
 import requests
 import xmltodict
 import datetime
 import os
+import hashlib
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cecff03f1509d881852c2a9d84276214'
@@ -13,9 +15,17 @@ app.config.from_object(__name__)
 
 
 def check_auth():
-    if 'logged_in' not in session or not session['logged_in']:
-        flash("you don't have premision to do that")
-        return redirect(url_for('home'))
+    if 'logged_in' not in session or bool(session['logged_in']) is False:
+        # flash("you don't have premision to do that") #TODO ZET DIT AAN
+        return False  # TODO FIX THIS REDIRECT
+        # return redirect(url_for('home'))
+
+
+# encrypt a string with sha256
+def encrypt_string(hash_string):
+    sha_signature = \
+        hashlib.sha256(hash_string.encode()).hexdigest()
+    return sha_signature
 
 
 # URL routes
@@ -31,7 +41,7 @@ def login():
         with open("db/users.csv", 'r') as myCSVFile:
             rows = csv.DictReader(myCSVFile, delimiter=';')
             for row in rows:
-                if row['email'] == form.email.data and row['password'] == form.password.data:
+                if row['email'] == form.email.data and row['password'] == encrypt_string(form.password.data):
                     session['user_id'] = row['id']
                     session['logged_in'] = True
                     flash('You have been logged in!', 'success')
@@ -52,7 +62,6 @@ def register():
             return redirect(url_for('login'))
         else:
             flash('This mail address is already in use', 'danger')
-
     return render_template('register.html', form=form)
 
 
@@ -83,7 +92,7 @@ def movies():
     if int(get_active_user()['type_id']) == 1:
         return render_template('user_movies.html', movies=get_user_movies())
     elif int(get_active_user()['type_id']) == 2:
-        return render_template('movies.html', movies=get_free_movies())
+        return render_template('movies.html', movies=get_provided_movies())
     else:
         print('error')
         # TODO 404 error
@@ -158,7 +167,7 @@ def create_user(username, email, password):
             'id': find_next_id('users'),
             'username': username,
             'email': email,
-            'password': password,
+            'password': encrypt_string(password),
             'type_id': 1  # TODO Type_id for providers
         })
         create_user_account(username)
@@ -245,14 +254,15 @@ def create_provided_movie(movie_imdb_id):
     return True
 
 
-def get_free_movies():
+def get_provided_movies():
     movies = get_movies()
-    non_provided_movies = {}
-    #imdb_id = map(lambda x : x)
+    imdb_ids = []
+    provided_movies = []
     with open("db/provider_list.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
         for row in rows:
-            if row['imdb_id'] not in imdb_id:
-                non_provided_movies['film'] = movies['filmsoptv']['film']
-        return non_provided_movies
-
+            imdb_ids.append(row['imdb_id'])
+    for movie in movies['filmsoptv']['film']:
+        if movie['imdb_id'] not in imdb_ids:
+            provided_movies.append(movie)
+    return provided_movies
