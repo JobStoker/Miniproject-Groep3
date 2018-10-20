@@ -15,8 +15,8 @@ app.config.from_object(__name__)
 
 
 def check_auth():
-    if 'logged_in' not in session or bool(session['logged_in']) is False:
-        # flash("you don't have premision to do that") #TODO ZET DIT AAN
+    if 'logged_in' not in session or bool(session['logged_in']) is False or 'user_id' not in session or bool(session['user_id']) is False:
+        flash("you don't have premision to do that") #TODO ZET DIT AAN
         return False  # TODO FIX THIS REDIRECT
         # return redirect(url_for('home'))
 
@@ -49,6 +49,13 @@ def login():
         flash('No valid user and password!', 'danger')
 
     return render_template('login.html', form=form)
+
+
+@app.route("/logout")
+def logout():
+    session['user_id'] = False  # TODO DELETE THIS SESSION
+    session['logged_in'] = False
+    return redirect('login')
 
 
 @app.route("/register", methods=['GET', 'POST'])
