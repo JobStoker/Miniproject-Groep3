@@ -3,7 +3,8 @@
 {% block content %}
     {% for account in accounts %}
         <div class="row">
-            {{ account['name'] }} - {{ account['date_of_birth'] }}
+            {# TODO the correct href #}
+            <a href="#">{{ account['name'] }} - {{ account['date_of_birth'] }}</a>
         </div>
     {% endfor %}
 
