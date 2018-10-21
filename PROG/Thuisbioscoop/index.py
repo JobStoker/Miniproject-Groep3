@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, flash, redirect, session
 from forms import RegisterForm, LoginForm, CreateAccountForm
+from flask_simplelogin import SimpleLogin
 from werkzeug.security import generate_password_hash
 import csv
 import requests
@@ -16,11 +17,13 @@ SESSION_TYPE = 'redis'
 app.config.from_object(__name__)
 
 
+class StatusDenied(Exception):
+    pass
+
+
 def check_auth():
     if 'logged_in' not in session or bool(session['logged_in']) is False or 'user_id' not in session or bool(session['user_id']) is False:
-        flash("you don't have premision to do that") #TODO ZET DIT AAN
-        return False  # TODO FIX THIS REDIRECT
-        # return redirect(url_for('home'))
+        raise StatusDenied
 
 
 # encrypt a string with sha256
@@ -28,6 +31,12 @@ def encrypt_string(hash_string):
     sha_signature = \
         hashlib.sha256(hash_string.encode()).hexdigest()
     return sha_signature
+
+
+@app.errorhandler(StatusDenied)
+def redirect_on_status_denied(error):
+    flash("you don't have premision to do that", "danger")
+    return redirect("login")
 
 
 # URL routes
@@ -44,19 +53,22 @@ def login():
             rows = csv.DictReader(myCSVFile, delimiter=';')
             for row in rows:
                 if row['email'] == form.email.data and row['password'] == encrypt_string(form.password.data):
+                    session['user_type_id'] = row['type_id']
                     session['user_id'] = row['id']
                     session['logged_in'] = True
                     flash('You have been logged in!', 'success')
-                    return redirect('accounts')
-        flash('No valid user and password!', 'danger')
+                    if int(row['type_id']) == 1:
+                        return redirect('accounts')
+                    elif int(row['type_id']) == 2:
+                        return redirect('movies')
+            flash('No valid user and password!', 'danger')
 
     return render_template('login.html', form=form)
 
 
 @app.route("/logout")
 def logout():
-    session['user_id'] = False  # TODO DELETE THIS SESSION
-    session['logged_in'] = False
+    session.clear()
     return redirect('login')
 
 
@@ -66,7 +78,7 @@ def register():
     if form.validate_on_submit():
         user = check_user_exists(form.email.data)
         if user is False:
-            create_user(form.username.data, form.email.data, form.password.data)
+            create_user(form.username.data, form.email.data, form.password.data, form.type_id.data)
             flash('Account added!', 'success')
             return redirect(url_for('login'))
         else:
@@ -88,7 +100,7 @@ def create_account():
     check_auth()
     form = CreateAccountForm()
     if form.validate_on_submit():
-        create_user_account(form.name.data)
+        create_user_account(form.name.data, session['user_id'])
         flash('New account sucsefuly created!', 'success')
         return redirect(url_for('accounts'))
     return render_template('create_account.html', form=form)
@@ -169,18 +181,19 @@ def check_user_exists(email):
     return False
 
 
-def create_user(username, email, password):
+def create_user(username, email, password, type_id):
     with open('db/users.csv', 'a', newline='') as myCSVFile:
         fieldnames = ['id', 'username', 'email', 'password', 'type_id']
         writer = csv.DictWriter(myCSVFile, fieldnames=fieldnames, delimiter=';')
+        user_id = find_next_id('users')
         writer.writerow({
-            'id': find_next_id('users'),
+            'id': user_id,
             'username': username,
             'email': email,
             'password': encrypt_string(password),
-            'type_id': 1  # TODO Type_id for providers
+            'type_id': type_id
         })
-        create_user_account(username)
+        create_user_account(username, user_id)
     return True
 
 
@@ -194,14 +207,14 @@ def get_user_accounts():
     return accounts
 
 
-def create_user_account(name):
+def create_user_account(name, user_id):
     with open('db/user_accounts.csv', 'a', newline='') as myCSVFile:
         fieldnames = ['id', 'name', 'user_id', 'date_of_birth']
         writer = csv.DictWriter(myCSVFile, fieldnames=fieldnames, delimiter=';')
         writer.writerow({
             'id': find_next_id('user_accounts'),
             'name': name,
-            'user_id': session['user_id'],
+            'user_id': user_id,
             'date_of_birth': ''
         })  # TODO DATE OF BIRTH if needed idk if we want to do this or anything like this
         return True
