@@ -2,6 +2,9 @@
 
 {% block content %}
     <div class="col-md-4">
+    1
+    {{ reservations }}
+    2
         {% for movie in movies %}
             <div class="card mb-4">
                 <img class="card-img-top" src={{ movie['cover'] }}>
@@ -15,5 +18,9 @@
                 </div>
             </div>
         {%  endfor %}
+        {% if active_user == 1 %}
+            asd
+            {{  reservations }}
+        {%  endif %}
     </div>
 {% endblock %}
