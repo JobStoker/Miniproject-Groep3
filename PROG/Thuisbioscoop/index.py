@@ -1,4 +1,5 @@
 from flask import Flask, render_template, url_for, flash, redirect, session
+#from flask.ext.qrcode import QRcode
 from forms import RegisterForm, LoginForm, CreateAccountForm, ValidateMovieCodeForm
 from werkzeug.security import generate_password_hash
 import csv
@@ -14,6 +15,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cecff03f1509d881852c2a9d84276214'
 SESSION_TYPE = 'redis'
 app.config.from_object(__name__)
+#QRcode(app)
 
 
 class StatusDenied(Exception):
