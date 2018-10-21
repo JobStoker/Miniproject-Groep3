@@ -7,6 +7,8 @@ import xmltodict
 import datetime
 import os
 import hashlib
+import random
+import string
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cecff03f1509d881852c2a9d84276214'
@@ -28,6 +30,11 @@ def encrypt_string(hash_string):
     sha_signature = \
         hashlib.sha256(hash_string.encode()).hexdigest()
     return sha_signature
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html')  # TODO layout
 
 
 @app.errorhandler(StatusDenied)
@@ -110,7 +117,7 @@ def movies():
     if int(get_active_user()['type_id']) == 1:
         return render_template('user_movies.html', movies=get_user_movies())
     elif int(get_active_user()['type_id']) == 2:
-        return render_template('movies.html', movies=get_provided_movies())
+        return render_template('movies.html', movies=get_provided_movies(), reservations=get_reservations())
     else:
         print('error')
         # TODO 404 error
@@ -120,11 +127,11 @@ def movies():
 def add_movie(movie_imdb_id):
     check_auth()
     if int(get_active_user()['type_id']) == 1:
-        print('xxx')  # TODO MAKE RESERVATION!!!
-        return 'TODO'
+        reserve_movie(movie_imdb_id)
+        return render_template('addmovie.html')
     elif int(get_active_user()['type_id']) == 2:
         create_provided_movie(movie_imdb_id)  # TODO Check if realy instat aanbieden
-        return render_template('addmovie.html', movie=get_movie(movie_imdb_id))
+        return render_template('addmovie.html')
     else:
         print('error')
         # TODO 404 error
@@ -135,7 +142,13 @@ def validate_movie():
     check_auth()  # TODO ONLY USER_TYPE_1
     form = ValidateMovieCodeForm()
     if form.validate_on_submit():
-        print('x')
+        reserved = get_by_reservation_code(form.code.data)
+        if reserved:
+            flash('Reservation found', 'success')
+            return 'found'  # TODO return something a page or anything like that
+        else:
+            flash('Reservation not found', 'danger')
+            return redirect(url_for('validate_movie'))
     return render_template('validate_movie.html', form=form)
 
 
@@ -144,6 +157,13 @@ def validate_movie():
 
 
 
+def get_by_reservation_code(code):
+    with open("db/reserved.csv", 'r') as myCSVFile:
+        rows = csv.DictReader(myCSVFile, delimiter=';')
+        for row in rows:
+            if row['ticket_code'] == code:
+                return row
+        return False
 
 
 def get_user_movies():
@@ -152,7 +172,8 @@ def get_user_movies():
         rows = csv.DictReader(myCSVFile, delimiter=';')
         for row in rows:
             # if row['user_id'] == session['user_id']: # TODO RULES only movies today ect....
-            accounts.append(row)
+            if row['date'] == datetime.datetime.today().strftime('%d-%m-%Y'):
+                accounts.append(row)
         return accounts
 
 
@@ -250,7 +271,7 @@ def create_provided_movie(movie_imdb_id):
     with open('db/provider_list.csv', 'a', newline='') as myCSVFile:
         fieldnames = ['id', 'user_id', 'ft_link', 'titel', 'jaar', 'regisseur', 'cast', 'genre', 'land', 'cover',
                       'tagline', 'duur', 'synopsis', 'ft_rating', 'ft_votes', 'imdb_id', 'imdb_rating',
-                      'imdb_votes', 'starttijd', 'eindtijd', 'zender', 'filmtip']
+                      'imdb_votes', 'starttijd', 'eindtijd', 'zender', 'filmtip', 'date']
         writer = csv.DictWriter(myCSVFile, fieldnames=fieldnames, delimiter=';')
 
         writer.writerow({
@@ -275,7 +296,8 @@ def create_provided_movie(movie_imdb_id):
             'starttijd': movie['starttijd'],
             'eindtijd': movie['eindtijd'],
             'zender': movie['zender'],
-            'filmtip': movie['filmtip']
+            'filmtip': movie['filmtip'],
+            'date': datetime.datetime.today().strftime('%d-%m-%Y')
         })
     return True
 
@@ -292,3 +314,38 @@ def get_provided_movies():
         if movie['imdb_id'] not in imdb_ids:
             provided_movies.append(movie)
     return provided_movies
+
+def get_provided_movie(imdb_id):
+    with open("db/provider_list.csv", 'r') as myCSVFile:
+        rows = csv.DictReader(myCSVFile, delimiter=';')
+        for row in rows:
+            if row['imdb_id'] == imdb_id:
+                return row
+    return False
+
+def reserve_movie(imdb_id):
+    movie = get_provided_movie(imdb_id)
+    with open('db/reserved''.csv', 'a', newline='') as myCSVFile:
+        fieldnames = ['id', 'movie_id', 'provider_id', 'user_id', 'ticket_code']
+        writer = csv.DictWriter(myCSVFile, fieldnames=fieldnames, delimiter=';')
+        #TODO Checken of die er al in staat
+        writer.writerow({
+            'id': find_next_id('reserved'),
+            'movie_id': movie['id'],
+            'provider_id': movie['user_id'],
+            'user_id': session['user_id'],
+            'ticket_code': generate_code()
+        })
+    return True
+
+def generate_code():
+    return ''.join(random.sample(string.ascii_uppercase+string.digits, 8))
+
+def get_reservations():
+    reservations = []
+    with open("db/reserved.csv", 'r') as myCSVFile:
+        rows = csv.DictReader(myCSVFile, delimiter=';')
+        for row in rows:
+            if row['provider_id'] == session['user_id']:
+                reservations.append(row)
+    return reservations
