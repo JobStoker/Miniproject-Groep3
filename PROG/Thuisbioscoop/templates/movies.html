@@ -2,9 +2,8 @@
 
 {% block content %}
     <div class="col-md-4">
-    1
     {{ reservations }}
-    2
+    {{ provided }}
         {% for movie in movies %}
             <div class="card mb-4">
                 <img class="card-img-top" src={{ movie['cover'] }}>
