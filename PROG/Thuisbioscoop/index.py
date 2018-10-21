@@ -1,6 +1,5 @@
 from flask import Flask, render_template, url_for, flash, redirect, session
-from forms import RegisterForm, LoginForm, CreateAccountForm
-from flask_simplelogin import SimpleLogin
+from forms import RegisterForm, LoginForm, CreateAccountForm, ValidateMovieCodeForm
 from werkzeug.security import generate_password_hash
 import csv
 import requests
@@ -131,6 +130,13 @@ def add_movie(movie_imdb_id):
         # TODO 404 error
 
 
+@app.route('/validate/movie', methods=['GET', 'POST'])
+def validate_movie():
+    check_auth()  # TODO ONLY USER_TYPE_1
+    form = ValidateMovieCodeForm()
+    if form.validate_on_submit():
+        print('x')
+    return render_template('validate_movie.html', form=form)
 
 
 

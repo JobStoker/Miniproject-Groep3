@@ -22,3 +22,7 @@ class CreateAccountForm(FlaskForm):
     name = StringField('name', validators=[DataRequired(), Length(min=2, max=50)])
     submit = SubmitField('Aanmaken')
 
+
+class ValidateMovieCodeForm(FlaskForm):
+    code = StringField('Code', validators=[DataRequired()])
+    submit = SubmitField('Code checken')
