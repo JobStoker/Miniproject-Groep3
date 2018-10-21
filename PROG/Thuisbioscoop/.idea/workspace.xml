@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="db2c7d44-c7a3-446a-beb1-924e1b4e11fd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/provider_list.csv" beforeDir="false" afterPath="$PROJECT_DIR$/db/provider_list.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/reserved.csv" beforeDir="false" afterPath="$PROJECT_DIR$/db/reserved.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/db/users.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/user_accounts.csv" beforeDir="false" afterPath="$PROJECT_DIR$/db/user_accounts.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/index.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/movies.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/movies.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/user_movies.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user_movies.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,7 +20,7 @@
     <session id="-2010367578">
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="csv" value="12" />
+          <entry key="csv" value="13" />
           <entry key="html" value="11" />
           <entry key="py" value="14" />
         </counts>
@@ -32,7 +28,7 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="HTML" value="11" />
-          <entry key="PLAIN_TEXT" value="12" />
+          <entry key="PLAIN_TEXT" value="13" />
           <entry key="Python" value="14" />
         </counts>
       </usages-collector>
@@ -63,20 +59,29 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="403">
-              <caret line="374" column="45" lean-forward="true" selection-start-line="374" selection-start-column="45" selection-end-line="374" selection-end-column="45" />
+            <state relative-caret-position="3502">
+              <caret line="224" column="10" selection-start-line="224" selection-start-column="10" selection-end-line="224" selection-end-column="10" />
               <folding>
                 <element signature="e#0#75#0" expanded="true" />
-                <marker date="1540125693492" expanded="true" signature="9734:9960" ph="..." />
-                <marker date="1540125693492" expanded="true" signature="9987:9988" ph="..." />
-                <marker date="1540125693492" expanded="true" signature="11069:11070" ph="..." />
-                <marker date="1540125693492" expanded="true" signature="11191:11192" ph="..." />
-                <marker date="1540125693492" expanded="true" signature="11888:11889" ph="..." />
-                <marker date="1540125693492" expanded="true" signature="12304:12305" ph="..." />
+                <marker date="1540126274522" expanded="true" signature="9654:9880" ph="..." />
+                <marker date="1540126274522" expanded="true" signature="9907:9908" ph="..." />
+                <marker date="1540126274522" expanded="true" signature="10989:10990" ph="..." />
+                <marker date="1540126274522" expanded="true" signature="11111:11112" ph="..." />
+                <marker date="1540126274522" expanded="true" signature="11808:11809" ph="..." />
+                <marker date="1540126274522" expanded="true" signature="12224:12225" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/db/user_accounts.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="15" selection-start-column="15" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -173,6 +178,7 @@
         <option value="$PROJECT_DIR$/templates/user_movies.html" />
         <option value="$PROJECT_DIR$/db/reserved.csv" />
         <option value="$PROJECT_DIR$/index.py" />
+        <option value="$PROJECT_DIR$/db/user_accounts.csv" />
       </list>
     </option>
   </component>
@@ -182,7 +188,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-39" />
     <option name="y" value="216" />
     <option name="width" value="1936" />
@@ -435,17 +441,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="374" column="45" lean-forward="true" selection-start-line="374" selection-start-column="45" selection-end-line="374" selection-end-column="45" />
+        <state relative-caret-position="3502">
+          <caret line="224" column="10" selection-start-line="224" selection-start-column="10" selection-end-line="224" selection-end-column="10" />
           <folding>
             <element signature="e#0#75#0" expanded="true" />
-            <marker date="1540125693492" expanded="true" signature="9734:9960" ph="..." />
-            <marker date="1540125693492" expanded="true" signature="9987:9988" ph="..." />
-            <marker date="1540125693492" expanded="true" signature="11069:11070" ph="..." />
-            <marker date="1540125693492" expanded="true" signature="11191:11192" ph="..." />
-            <marker date="1540125693492" expanded="true" signature="11888:11889" ph="..." />
-            <marker date="1540125693492" expanded="true" signature="12304:12305" ph="..." />
+            <marker date="1540126274522" expanded="true" signature="9654:9880" ph="..." />
+            <marker date="1540126274522" expanded="true" signature="9907:9908" ph="..." />
+            <marker date="1540126274522" expanded="true" signature="10989:10990" ph="..." />
+            <marker date="1540126274522" expanded="true" signature="11111:11112" ph="..." />
+            <marker date="1540126274522" expanded="true" signature="11808:11809" ph="..." />
+            <marker date="1540126274522" expanded="true" signature="12224:12225" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/user_accounts.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="15" selection-start-column="15" selection-end-column="15" />
         </state>
       </provider>
     </entry>

@@ -222,7 +222,7 @@ def create_user_account(name, user_id):
             'name': name,
             'user_id': user_id,
             'date_of_birth': ''
-        })  # TODO DATE OF BIRTH if needed idk if we want to do this or anything like this
+        })
         return True
 
 
