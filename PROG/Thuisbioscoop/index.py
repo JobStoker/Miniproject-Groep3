@@ -111,9 +111,9 @@ def create_account():
 def movies():
     check_auth()
     if int(get_active_user()['type_id']) == 1:
-        return render_template('user_movies.html', movies=get_user_movies())
+        return render_template('user_movies.html', movies=get_user_movies(), tickets=get_user_tickets())
     elif int(get_active_user()['type_id']) == 2:
-        return render_template('movies.html', movies=get_provided_movies(), reservations=get_reservations())
+        return render_template('movies.html', movies=get_provided_movies(), reservations=get_reservations(), provided=get_current_provider_movies())
     else:
         print('error')
         # TODO 404 error
@@ -143,14 +143,20 @@ def add_movie(movie_imdb_id):
 
 
 def get_user_movies():
-    accounts = []
-    with open("db/provider_list.csv", 'r') as myCSVFile:
+    movies = []
+    reserved = []
+
+    with open("db/reserved.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
         for row in rows:
-            # if row['user_id'] == session['user_id']: # TODO RULES only movies today ect....
-            if row['date'] == datetime.datetime.today().strftime('%d-%m-%Y'):
-                accounts.append(row)
-        return accounts
+            reserved.append(row['user_id'] + row['movie_id'])
+
+        with open("db/provider_list.csv", 'r') as myCSVFile:
+            rows = csv.DictReader(myCSVFile, delimiter=';')
+            for row in rows:
+                if row['date'] == datetime.datetime.today().strftime('%d-%m-%Y') and session['user_id'] + row['id'] not in reserved:
+                    movies.append(row)
+            return movies
 
 
 def get_active_user():
@@ -301,17 +307,31 @@ def get_provided_movie(imdb_id):
 
 def reserve_movie(imdb_id):
     movie = get_provided_movie(imdb_id)
-    with open('db/reserved''.csv', 'a', newline='') as myCSVFile:
-        fieldnames = ['id', 'movie_id', 'provider_id', 'user_id', 'ticket_code']
-        writer = csv.DictWriter(myCSVFile, fieldnames=fieldnames, delimiter=';')
-        #TODO Checken of die er al in staat
-        writer.writerow({
-            'id': find_next_id('reserved'),
-            'movie_id': movie['id'],
-            'provider_id': movie['user_id'],
-            'user_id': session['user_id'],
-            'ticket_code': generate_code()
-        })
+    reserved = []
+
+    with open('db/reserved''.csv', 'r', newline='') as myCSVFile:
+        rows = csv.DictReader(myCSVFile, delimiter=';')
+
+        for row in rows:
+            reserved.append(row['user_id'] + row['movie_id'])
+
+        if session['user_id'] + movie['id'] not in reserved:
+
+            with open('db/reserved''.csv', 'a', newline='') as myCSVFile:
+                fieldnames = ['id', 'movie_id', 'provider_id', 'user_id', 'ticket_code', 'date']
+                writer = csv.DictWriter(myCSVFile, fieldnames=fieldnames, delimiter=';')
+
+                writer.writerow({
+                    'id': find_next_id('reserved'),
+                    'movie_id':     movie['id'],
+                    'provider_id':  movie['user_id'],
+                    'user_id':      session['user_id'],
+                    'ticket_code':  generate_code(),
+                    'date':         datetime.datetime.today().strftime('%d-%m-%Y')
+                })
+        else:
+            print("Staat er al in")
+
     return True
 
 def generate_code():
@@ -325,3 +345,33 @@ def get_reservations():
             if row['provider_id'] == session['user_id']:
                 reservations.append(row)
     return reservations
+
+def get_current_provider_movies():
+    provided_movies = []
+    with open("db/provider_list.csv", 'r') as myCSVFile:
+        rows = csv.DictReader(myCSVFile, delimiter=';')
+        for row in rows:
+            print(row['id'])
+            if row['id'] == session['user_id'] and row['date'] == datetime.datetime.today().strftime('%d-%m-%Y'):
+                provided_movies.append(row)
+    return provided_movies
+
+def get_provider_history():
+    movie_history = []
+    with open("db/provider_list.csv", 'r') as myCSVFile:
+        rows = csv.DictReader(myCSVFile, delimiter=';')
+        for row in rows:
+            print(row['id'])
+            if row['id'] == session['user_id'] and row['date'] != datetime.datetime.today().strftime('%d-%m-%Y'):
+                movie_history.append(row)
+    return provided_movies
+
+def get_user_tickets():
+    tickets = []
+
+    with open("db/reserved.csv", 'r') as myCSVFile:
+        rows = csv.DictReader(myCSVFile, delimiter=';')
+        for row in rows:
+            if session['user_id'] == row['user_id']:
+                tickets.append(row)
+        return tickets
