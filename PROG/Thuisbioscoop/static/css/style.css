@@ -1,0 +1,35 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image:   linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
+}
+
+a {
+    color: rgba(0, 0, 0, 0.61);
+    text-decoration: none;
+}
+
+a:hover
+{
+     color: #000;
+     text-decoration:   none;
+     cursor:    pointer;
+}
+
+.new_user{
+    color:  #FFF;
+}
+
+.new_user:hover{
+    color: #F7F7F7;
+}
+
+.accounts{
+    margin-top: 4%;
+}
+
+.synopsis{
+    display: inline;
+}

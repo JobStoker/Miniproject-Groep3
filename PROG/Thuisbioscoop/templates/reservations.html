@@ -1,0 +1,39 @@
+{% extends "layout/layout.html" %}
+
+{% block content %}
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group mt-4">
+            <h5>{{ form.code.label(class="form-control-label") }}</h5>
+
+            {% if form.code.errors %}
+                {{ form.code(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.code.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+               {{ form.code(class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+    <div class="row mt-4">
+        {% for rservation in reservations %}
+            <div class="col-4">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ rservation['titel'] }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ rservation['starttijd'] }} <br> tot <br> {{ rservation['eindtijd'] }}</h6>
+                        <p class="card-text">{{ rservation['ticket_code'] }}</p>
+                    </div>
+                </div>
+            </div>
+        {%  endfor %}
+    </div>
+{% endblock %}

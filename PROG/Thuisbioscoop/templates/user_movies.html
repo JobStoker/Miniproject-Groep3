@@ -1,20 +1,30 @@
 {% extends "layout/layout.html" %}
 
 {% block content %}
-    <div class="col-md-4">
-    {{ tickets }}
         {% for movie in movies %}
-            <div class="card mb-4">
-                <img class="card-img-top" src={{ movie['cover'] }}>
-                <div class="card-body">
-                  <h2 class="card-title">{{  movie['titel']  }}</h2>
-                  <p class="card-text">{{  movie['synopsis'] }}</p>
-                  <a href="/movies/{{ movie['imdb_id'] }}" class="btn btn-primary">Reserveer</a>
+            <div class="jumbotron mt-4">
+                <h1 class="display-6">{{  movie['titel']  }}</h1>
+                <hr class="my-4">
+                <div class="row" class="mt-5">
+                    <div class="col-md-4">
+                        <img src={{ movie['cover'] }}>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="synopsis">{{  movie['synopsis'] }}</p>
+                    </div>
                 </div>
-                <div class="card-footer text-muted">
-                  {{ movie['zender'] }}
+                <hr class="my-4">
+                <div class="row">
+                    <div class="col-3">
+                        <h4 class="display-8">{{ movie['zender'] }}</h4>
+                    </div>
+                    <div class="col-7">
+                        {{ movie['starttijd'] }} / {{ movie['eindtijd'] }}
+                    </div>
+                    <div class="col-2">
+                        <a href="/movies/{{ movie['imdb_id'] }}" class="btn btn-primary">Reserveer</a>
+                    </div>
                 </div>
             </div>
         {%  endfor %}
-    </div>
 {% endblock %}

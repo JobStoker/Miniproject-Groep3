@@ -1,6 +1,7 @@
-id;movie_id;provider_id;user_id;ticket_code;date
-1;3;1;1;K6WCY40H
-2;3;1;1;VRO36H0S
-3;3;1;1;RU2XY1V5
-4;3;1;1;CVO4DFGQ
-5;4;1;1;MHR1S7IY
+id;movie_id;provider_id;user_id;ticket_code;date;starttijd;eindtijd;titel
+1;3;1;1;K6WCY40H;20-10-2018
+2;3;1;1;VRO36H0S;20-10-2018
+3;3;1;1;RU2XY1V5;20-10-2018
+7;7;1;1;8QWXIDGV;22-10-2018;2018-10-22 20:30:00;2018-10-22 22:40:00;Olympus Has Fallen
+8;6;1;1;YPSUH9GL;22-10-2018;2018-10-22 12:00:00;2018-10-22 13:20:00;Casper en Emma op Safari
+9;8;1;1;WIMRNQ2Z;22-10-2018;2018-10-22 22:20:00;2018-10-23 00:25:00;"Fast &amp; Furious"

@@ -24,5 +24,5 @@ class CreateAccountForm(FlaskForm):
 
 
 class ValidateMovieCodeForm(FlaskForm):
-    code = StringField('Code', validators=[DataRequired()])
-    submit = SubmitField('Code checken')
+    code = StringField('Ticket Code validatie', validators=[DataRequired()])
+    submit = SubmitField('Ticket Code checken')

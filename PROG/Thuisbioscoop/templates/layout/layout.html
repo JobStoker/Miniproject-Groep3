@@ -7,7 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     {% if title %}
         <title>{{ title }}</title>
     {% else %}
@@ -25,8 +25,53 @@
                 {% endfor %}
             {% endif %}
           {% endwith %}
+      {% if active_user == 1 %}
+          <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+              <a class="navbar-brand" href="#">Thuisbioscoop</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="/movies">Films</a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="/user_tickets">Tickets</a>
+                  </li>
+                    <div class="ml-2"><li class="nav-item active">
+                          <a class="nav-link" href="/logout">Logout</a>
+                    </div>
+                </ul>
+              </div>
+            </nav>
+            {% endif %}
+          <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+              <a class="navbar-brand" href="#">Thuisbioscoop</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="/movies">Films</a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link active" href="/provided">Mijn Films</a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="/reservations">Reservaties</a>
+                  </li>
+                      <div class="ml-2"><li class="nav-item active">
+                          <a class="nav-link" href="/logout">Logout</a>
+                      </div>
+                    </li>
+                </ul>
+              </div>
+            </nav>
 
-          {% block content %}{% endblock %}
+          {% block content %}
+          {% endblock %}
       </div>
 
     <!-- Optional JavaScript -->
