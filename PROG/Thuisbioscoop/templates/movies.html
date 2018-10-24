@@ -10,7 +10,8 @@
                         <img src={{ movie['cover'] }}>
                     </div>
                     <div class="col-md-6">
-                        <p class="synopsis">{{  movie['synopsis'] }}</p>
+                        {# TODO FIX THIS WITH DECODER #}
+                        <p class="synopsis">{{ movie['synopsis'] }}</p>
                     </div>
                 </div>
                 <hr class="my-4">
@@ -28,11 +29,6 @@
             </div>
         {%  endfor %}
         {% if active_user == 1 %}
-            asd
             {{  reservations }}
         {%  endif %}
-
 {% endblock %}
-
-
->
