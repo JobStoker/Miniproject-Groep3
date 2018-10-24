@@ -133,7 +133,7 @@ def movies():
 
 @app.route('/movies/<movie_imdb_id>')
 def add_movie(movie_imdb_id):
-    check_auth()
+    print(get_active_user()['type_id'])
     if int(get_active_user()['type_id']) == 1:
         reserve_movie(movie_imdb_id)
         return redirect('/user_tickets')
@@ -167,6 +167,11 @@ def movie_provided():
 @app.route('/user_tickets')
 def user_tickets():
     return render_template('tickets.html', tickets=get_user_tickets())
+
+
+
+
+
 
 
 
