@@ -101,6 +101,12 @@ def accounts():
     return render_template('accounts.html', accounts=user_accounts, account_count=len(user_accounts))
 
 
+@app.route('/account/<account_id>')
+def account_login(account_id):
+    session['account_id'] = account_id
+    return redirect('movies')
+
+
 # TODO NICE TEMPLATE
 @app.route('/account/create', methods=['GET', 'POST'])
 def create_account():
@@ -122,8 +128,7 @@ def movies():
     elif int(get_active_user()['type_id']) == 2:
         return render_template('movies.html', movies=get_provided_movies())
     else:
-        print('error')
-        # TODO 404 error
+        raise 404
 
 
 @app.route('/movies/<movie_imdb_id>')
@@ -136,8 +141,7 @@ def add_movie(movie_imdb_id):
         create_provided_movie(movie_imdb_id)  # TODO Check if realy instat aanbieden
         return render_template('provided.html')
     else:
-        print('error')
-        # TODO 404 error
+        raise 404
 
 
 @app.route('/reservations', methods=['GET', 'POST'])
@@ -164,10 +168,10 @@ def movie_provided():
 def user_tickets():
     return render_template('tickets.html', tickets=get_user_tickets())
 
+
 @app.route('/user_tickets/<ticket_code>')
 def user_ticket():
     return render_template('tickets.html', tickets=get_user_ticket())
-
 
 
 def get_by_reservation_code(code):
@@ -210,6 +214,15 @@ def get_user(user_id):
         rows = csv.DictReader(myCSVFile, delimiter=';')
         for row in rows:
             if row['id'] == user_id:
+                return row
+    return False
+
+
+def get_account(account_id):
+    with open("db/user_accounts.csv", 'r') as myCSVFile:
+        rows = csv.DictReader(myCSVFile, delimiter=';')
+        for row in rows:
+            if row['id'] == account_id:
                 return row
     return False
 
@@ -337,6 +350,7 @@ def get_provided_movies():
             provided_movies.append(movie)
     return provided_movies
 
+
 def get_provided_movie(imdb_id):
     with open("db/provider_list.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
@@ -344,6 +358,7 @@ def get_provided_movie(imdb_id):
             if row['imdb_id'] == imdb_id:
                 return row
     return False
+
 
 def reserve_movie(imdb_id):
     movie = get_provided_movie(imdb_id)
@@ -358,14 +373,15 @@ def reserve_movie(imdb_id):
         if session['user_id'] + movie['id'] not in reserved:
 
             with open('db/reserved''.csv', 'a', newline='') as myCSVFile:
-                fieldnames = ['id', 'movie_id', 'provider_id', 'user_id', 'ticket_code', 'date', 'starttijd', 'eindtijd', 'titel']
+                fieldnames = ['id', 'movie_id', 'provider_id', 'user_id', 'account_id', 'ticket_code', 'date', 'starttijd', 'eindtijd', 'titel']
                 writer = csv.DictWriter(myCSVFile, fieldnames=fieldnames, delimiter=';')
 
                 writer.writerow({
                     'id': find_next_id('reserved'),
                     'movie_id':     movie['id'],
                     'provider_id':  movie['user_id'],
-                    'user_id':      session['user_id'],
+                    'user_id':   session['user_id'],
+                    'account_id':   session['account_id'],
                     'ticket_code':  generate_code(),
                     'date':         datetime.datetime.today().strftime('%d-%m-%Y'),
                     'starttijd':    convert_epoch(int(movie['starttijd'])),
@@ -389,6 +405,7 @@ def get_reservations():
                 reservations.append(row)
     return reservations
 
+
 def get_current_provider_movies():
     provided_movies = []
     with open("db/provider_list.csv", 'r') as myCSVFile:
@@ -399,6 +416,7 @@ def get_current_provider_movies():
                 provided_movies.append(row)
     return provided_movies
 
+
 def get_provider_history():
     movie_history = []
     with open("db/provider_list.csv", 'r') as myCSVFile:
@@ -407,6 +425,7 @@ def get_provider_history():
             if row['id'] == session['user_id'] and row['date'] != datetime.datetime.today().strftime('%d-%m-%Y'):
                 movie_history.append(row)
     return provided_movies
+
 
 def get_user_tickets():
     tickets = []
@@ -419,8 +438,10 @@ def get_user_tickets():
                 tickets.append(row)
         return tickets
 
+
 def convert_epoch(date):
     return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(date))
+
 
 def get_user_ticket():
     print('asd')

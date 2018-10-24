@@ -44,9 +44,8 @@
               </div>
               <div class="row accounts">
                 {% for account in accounts %}
-                    {# TODO the correct href #}
                     <div class="col-sm-3 users">
-                        <div class="mr-2"><a href="#">{{ account['name'] }}</a></div>
+                        <div class="mr-2"><a href="account/{{ account.id }}">{{ account['name'] }}</a></div>
                     </div>
                 {% endfor %}
               </div>
