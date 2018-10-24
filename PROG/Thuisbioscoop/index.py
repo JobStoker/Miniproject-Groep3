@@ -11,13 +11,13 @@ import hashlib
 import random
 import string
 import time
+from flask_qrcode import QRcode
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cecff03f1509d881852c2a9d84276214'
 SESSION_TYPE = 'redis'
 app.config.from_object(__name__)
-#QRcode(app)
-
+QRcode(app)
 
 class StatusDenied(Exception):
     pass
