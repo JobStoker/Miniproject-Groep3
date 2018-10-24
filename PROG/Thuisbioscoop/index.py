@@ -169,10 +169,6 @@ def user_tickets():
     return render_template('tickets.html', tickets=get_user_tickets())
 
 
-@app.route('/user_tickets/<ticket_code>')
-def user_ticket(ticket_code):
-    return render_template('tickets.html')
-
 
 def get_by_reservation_code(code):
     with open("db/reserved.csv", 'r') as myCSVFile:
@@ -441,8 +437,6 @@ def get_user_tickets():
         rows = csv.DictReader(myCSVFile, delimiter=';')
         for row in rows:
             if session['user_id'] == row['user_id'] and row['date'] == datetime.datetime.today().strftime('%d-%m-%Y'):
-                row['starttijd'] = convert_epoch(int(row['starttijd']))
-                row['eindtijd'] = convert_epoch(int(row['eindtijd']))
                 tickets.append(row)
         return tickets
 
@@ -450,6 +444,3 @@ def get_user_tickets():
 def convert_epoch(date):
     return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(date))
 
-
-def get_user_ticket():
-    print('asd')
