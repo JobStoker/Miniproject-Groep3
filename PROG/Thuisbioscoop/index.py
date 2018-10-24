@@ -393,8 +393,10 @@ def reserve_movie(imdb_id):
 
     return True
 
+
 def generate_code():
     return ''.join(random.sample(string.ascii_uppercase+string.digits, 8))
+
 
 def get_reservations():
     reservations = []
