@@ -43,13 +43,13 @@ def page_not_found(e):
 @app.errorhandler(StatusDenied)
 def redirect_on_status_denied(error):
     flash("you don't have premision to do that", "danger")
-    return redirect("login")
+    return redirect("/login")
 
 
 # URL routes
 @app.route("/")
 def home():
-    return render_template('home.html')
+    return redirect('/login')
 
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -139,7 +139,7 @@ def add_movie(movie_imdb_id):
         return render_template('tickets.html')
     elif int(get_active_user()['type_id']) == 2:
         create_provided_movie(movie_imdb_id)  # TODO Check if realy instat aanbieden
-        return render_template('provided.html')
+        return redirect('/provided')
     else:
         raise 404
 
