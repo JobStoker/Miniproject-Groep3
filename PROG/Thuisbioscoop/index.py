@@ -11,14 +11,13 @@ import hashlib
 import random
 import string
 import time
-from flask_qr import QR
+from flask_qrcode import QRcode
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cecff03f1509d881852c2a9d84276214'
 SESSION_TYPE = 'redis'
 app.config.from_object(__name__)
-qr = QR(app, mode="google")
-
+QRcode(app)
 
 class StatusDenied(Exception):
     pass
@@ -169,10 +168,6 @@ def movie_provided():
 def user_tickets():
     return render_template('tickets.html', tickets=get_user_tickets())
 
-
-@app.route('/user_tickets/<ticket_code>')
-def user_ticket(ticket_code):
-    return render_template('tickets.html')
 
 
 
@@ -447,8 +442,6 @@ def get_user_tickets():
         rows = csv.DictReader(myCSVFile, delimiter=';')
         for row in rows:
             if session['user_id'] == row['user_id'] and row['date'] == datetime.datetime.today().strftime('%d-%m-%Y'):
-                row['starttijd'] = convert_epoch(int(row['starttijd']))
-                row['eindtijd'] = convert_epoch(int(row['eindtijd']))
                 tickets.append(row)
         return tickets
 
@@ -456,6 +449,3 @@ def get_user_tickets():
 def convert_epoch(date):
     return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(date))
 
-
-def get_user_ticket():
-    print('asd')
