@@ -1,3 +1,4 @@
-id;movie_id;provider_id;user_id;account_id;ticket_code;date;starttijd;eindtijd;titel;1;2;1;7;BOK1I0CX;25-10-2018;2018-10-25 15:31:00;2018-10-25 17:00:00;Full Out
+id;movie_id;provider_id;user_id;account_id;ticket_code;date;starttijd;eindtijd;titel
+1;2;1;7;BOK1I0CX;25-10-2018;2018-10-25 15:31:00;2018-10-25 17:00:00;Full Out
 2;2;2;1;4;ZD0L2K3O;25-10-2018;2018-10-25 15:30:00;2018-10-25 15:31:00;Standing Ovation
 3;3;2;4;15;U8O495VD;25-10-2018;2018-10-25 15:31:00;2018-10-25 17:00:00;Full Out

@@ -196,8 +196,6 @@ def get_user_movies():
             for row in rows:
                 timestamp = int(time.mktime(datetime.datetime.strptime(row['starttijd'], "%Y-%m-%d %H:%M:%S").timetuple()))
                 if timestamp <= int(calendar.timegm(time.gmtime())) and row['id'] not in reserved:
-                # if row['date'] == datetime.datetime.today().strftime('%d-%m-%Y') and row['id'] not in reserved:
-                #     print(datetime.datetime.today().strftime('%d-%m-%Y %H:%M'))
                     movies.append(row)
             return movies
 
