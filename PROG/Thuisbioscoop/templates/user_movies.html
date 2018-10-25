@@ -1,6 +1,7 @@
 {% extends "layout/layout.html" %}
 
 {% block content %}
+    {%  if movies %}
         {% for movie in movies %}
             <div class="jumbotron mt-4">
                 <h1 class="display-6">{{  movie['titel']  }}</h1>
@@ -10,7 +11,7 @@
                         <img src={{ movie['cover'] }}>
                     </div>
                     <div class="col-md-6">
-                        <p class="synopsis">{{  movie['synopsis'] }}</p>
+                        <p class="synopsis">{{  movie['synopsis'] | safe }}</p>
                     </div>
                 </div>
                 <hr class="my-4">
@@ -22,9 +23,40 @@
                         {{ movie['starttijd'] }} / {{ movie['eindtijd'] }}
                     </div>
                     <div class="col-2">
-                        <a href="/movies/{{ movie['imdb_id'] }}" class="btn btn-primary">Reserveer</a>
+                        <a href="/movies/{{ movie['imdb_id'] }}" class="btn btn-primary confirm">Reserveer</a>
                     </div>
                 </div>
             </div>
         {%  endfor %}
+    {% else %}
+        <div class="mt-4 bg-white p-3">
+            Er zijn op dit moment geen films!
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block script %}
+    <script>
+        $(document).ready(function() {
+            Btn_confirm = $('.confirm');
+            Btn_confirm.on('click', function (event) {
+                event.preventDefault();
+
+                swal({
+                    title: "Weet je het zeker?",
+                    text: "Weet je zeker dat je deze film wilt reserveren",
+                    icon: "warning",
+                    buttons: [
+                        'Nee, cancel het',
+                        'Ja, ik weet het zeker!'
+                    ],
+                    dangerMode: true,
+                }).then(function(isConfirm) {
+                    if (isConfirm) {
+                        window.location=Btn_confirm.attr('href');
+                    }
+                });
+            });
+        });
+    </script>
 {% endblock %}

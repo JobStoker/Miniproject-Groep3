@@ -11,6 +11,7 @@ import hashlib
 import random
 import string
 import time
+import calendar
 from flask_qrcode import QRcode
 
 app = Flask(__name__)
@@ -19,13 +20,18 @@ SESSION_TYPE = 'redis'
 app.config.from_object(__name__)
 QRcode(app)
 
+
 class StatusDenied(Exception):
     pass
 
 
-def check_auth():
+def check_auth(need_type_id=False):
     if 'logged_in' not in session or bool(session['logged_in']) is False or 'user_id' not in session or bool(session['user_id']) is False:
         raise StatusDenied
+    if need_type_id is not False:
+        user_type = get_active_user()['type_id']
+        if int(user_type) != int(need_type_id):
+            raise StatusDenied
 
 
 # encrypt a string with sha256
@@ -37,12 +43,14 @@ def encrypt_string(hash_string):
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html')  # TODO layout
+    return render_template('404.html')
 
 
 @app.errorhandler(StatusDenied)
 def redirect_on_status_denied(error):
     flash("you don't have premision to do that", "danger")
+    if 'logged_in' in session and bool(session['logged_in']) is True:
+        return redirect('/movies')
     return redirect("/login")
 
 
@@ -93,10 +101,9 @@ def register():
     return render_template('register.html', form=form)
 
 
-# TODO NICE TEMPLATE
 @app.route('/accounts')
 def accounts():
-    check_auth()
+    check_auth(1)
     user_accounts = get_user_accounts()
     return render_template('accounts.html', accounts=user_accounts, account_count=len(user_accounts))
 
@@ -107,10 +114,9 @@ def account_login(account_id):
     return redirect('movies')
 
 
-# TODO NICE TEMPLATE
 @app.route('/account/create', methods=['GET', 'POST'])
 def create_account():
-    check_auth()
+    check_auth(1)
     form = CreateAccountForm()
     if form.validate_on_submit():
         create_user_account(form.name.data, session['user_id'])
@@ -119,12 +125,11 @@ def create_account():
     return render_template('create_account.html', form=form)
 
 
-# TODO WEERGAVE
 @app.route('/movies')
 def movies():
     check_auth()
     if int(get_active_user()['type_id']) == 1:
-        return render_template('user_movies.html', movies=get_user_movies(), tickets=get_user_tickets())
+        return render_template('user_movies.html', movies=get_user_movies())
     elif int(get_active_user()['type_id']) == 2:
         return render_template('movies.html', movies=get_provided_movies())
     else:
@@ -133,7 +138,6 @@ def movies():
 
 @app.route('/movies/<movie_imdb_id>')
 def add_movie(movie_imdb_id):
-    print(get_active_user()['type_id'])
     if int(get_active_user()['type_id']) == 1:
         reserve_movie(movie_imdb_id)
         return redirect('/user_tickets')
@@ -146,7 +150,7 @@ def add_movie(movie_imdb_id):
 
 @app.route('/reservations', methods=['GET', 'POST'])
 def validate_movie():
-    check_auth()  # TODO ONLY USER_TYPE_1
+    check_auth()
     form = ValidateMovieCodeForm()
     if form.validate_on_submit():
         reserved = get_by_reservation_code(form.code.data)
@@ -166,13 +170,7 @@ def movie_provided():
 
 @app.route('/user_tickets')
 def user_tickets():
-    return render_template('tickets.html', tickets=get_user_tickets())
-
-
-
-
-
-
+    return render_template('tickets.html', tickets=get_account_tickets())
 
 
 def get_by_reservation_code(code):
@@ -191,12 +189,15 @@ def get_user_movies():
     with open("db/reserved.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
         for row in rows:
-            reserved.append(row['user_id'] + row['movie_id'])
+            reserved.append(row['movie_id'])
 
         with open("db/provider_list.csv", 'r') as myCSVFile:
             rows = csv.DictReader(myCSVFile, delimiter=';')
             for row in rows:
-                if row['date'] == datetime.datetime.today().strftime('%d-%m-%Y') and session['user_id'] + row['id'] not in reserved:
+                timestamp = int(time.mktime(datetime.datetime.strptime(row['starttijd'], "%Y-%m-%d %H:%M:%S").timetuple()))
+                if timestamp <= int(calendar.timegm(time.gmtime())) and row['id'] not in reserved:
+                # if row['date'] == datetime.datetime.today().strftime('%d-%m-%Y') and row['id'] not in reserved:
+                #     print(datetime.datetime.today().strftime('%d-%m-%Y %H:%M'))
                     movies.append(row)
             return movies
 
@@ -231,7 +232,6 @@ def get_account(account_id):
 def check_user_exists(email):
     with open("db/users.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
-        print(rows)
         for row in rows:
             if row['email'] == email:
                 return row
@@ -343,11 +343,11 @@ def get_provided_movies():
         rows = csv.DictReader(myCSVFile, delimiter=';')
         for row in rows:
             imdb_ids.append(row['imdb_id'])
+
     for movie in movies['filmsoptv']['film']:
         if movie['imdb_id'] not in imdb_ids:
             movie['starttijd'] = convert_epoch(int(movie['starttijd']))
             movie['eindtijd'] = convert_epoch(int(movie['eindtijd']))
-            print(movie['starttijd'])
             provided_movies.append(movie)
     return provided_movies
 
@@ -410,6 +410,7 @@ def get_reservations():
         rows = csv.DictReader(myCSVFile, delimiter=';')
         for row in rows:
             if row['provider_id'] == session['user_id'] and row['date'] == datetime.datetime.today().strftime('%d-%m-%Y'):
+                row['name'] = get_account(row['account_id'])['name']
                 reservations.append(row)
     return reservations
 
@@ -419,7 +420,6 @@ def get_current_provider_movies():
     with open("db/provider_list.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
         for row in rows:
-            print(row['user_id'] + session['user_id'])
             if row['user_id'] == session['user_id'] and row['date'] == datetime.datetime.today().strftime('%d-%m-%Y'):
                 provided_movies.append(row)
     return provided_movies
@@ -435,13 +435,14 @@ def get_provider_history():
     return provided_movies
 
 
-def get_user_tickets():
+def get_account_tickets():
     tickets = []
 
     with open("db/reserved.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
         for row in rows:
-            if session['user_id'] == row['user_id'] and row['date'] == datetime.datetime.today().strftime('%d-%m-%Y'):
+            if session['account_id'] == row['account_id'] and row['date'] == datetime.datetime.today().strftime('%d-%m-%Y'):
+                row['provider_name'] = get_user(row['provider_id'])['username']
                 tickets.append(row)
         return tickets
 

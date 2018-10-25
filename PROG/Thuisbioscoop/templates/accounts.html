@@ -44,9 +44,12 @@
               </div>
               <div class="row accounts">
                 {% for account in accounts %}
-                    <div class="col-sm-3 users bg-white m-3">
-                        <div class="mr-2"><a href="account/{{ account.id }}">{{ account['name'] }}</a></div>
-                    </div>
+                    <a href="account/{{ account.id }}" class="col-sm-3 users bg-white m-3 text-center pt-3">
+                        <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+                        <div class="mr-2 p-2">
+                            <b>{{ account['name'] }}</b>
+                        </div>
+                    </a>
                 {% endfor %}
               </div>
             </div>
