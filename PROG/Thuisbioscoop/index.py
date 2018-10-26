@@ -156,7 +156,6 @@ def validate_movie():
         reserved = get_by_reservation_code(form.code.data)
         if reserved:
             flash('Reservation found', 'success')
-            return 'found'  # TODO return something a page or anything like that
         else:
             flash('Reservation not found', 'danger')
             return redirect(url_for('validate_movie'))

@@ -56,7 +56,7 @@
                     dangerMode: true,
                 }).then(function(isConfirm) {
                     if (isConfirm) {
-                        window.location=Btn_confirm.attr('href');
+                        window.location=event.target.closest("a").getAttribute('href');
                     }
                 });
             });
