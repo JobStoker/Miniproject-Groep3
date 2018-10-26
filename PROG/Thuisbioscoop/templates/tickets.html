@@ -12,7 +12,6 @@
                             <h6 class="card-subtitle mb-2 text-muted">{{ ticket['starttijd'] }} <br> tot <br> {{ ticket['eindtijd'] }}</h6>
                             code: {{ ticket['ticket_code'] }}<br /><br />
                             <img src="{{ qrcode(ticket['ticket_code']) }}">
-                            <a href="/user_tickets/{{ ticket['ticket_code'] }}" class="card-link">Bekijk ticket</a>
                         </div>
                     </div>
                 </div>

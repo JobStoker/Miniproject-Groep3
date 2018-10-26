@@ -193,7 +193,7 @@ def get_user_movies():
         with open("db/provider_list.csv", 'r') as myCSVFile:
             rows = csv.DictReader(myCSVFile, delimiter=';')
             for row in rows:
-                if row['date'] == datetime.datetime.today().strftime('%d-%m-%Y') and session['user_id'] + row['id'] not in reserved:
+                if row['date'] == datetime.datetime.today().strftime('%d-%m-%Y'):
                     movies.append(row)
             return movies
 
@@ -335,6 +335,7 @@ def get_provided_movies():
     movies = get_movies()
     imdb_ids = []
     provided_movies = []
+
     with open("db/provider_list.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
         for row in rows:
@@ -359,42 +360,24 @@ def get_provided_movie(imdb_id):
 
 def reserve_movie(imdb_id):
     movie = get_provided_movie(imdb_id)
-    reserved = compare_tickets(imdb_id)
-    if session['user_id'] + movie['id'] not in reserved:
-        with open('db/reserved''.csv', 'a', newline='') as myCSVFile:
-            fieldnames = ['id', 'movie_id', 'provider_id', 'user_id', 'account_id', 'ticket_code', 'date',
-                          'starttijd', 'eindtijd', 'titel']
-            writer = csv.DictWriter(myCSVFile, fieldnames=fieldnames, delimiter=';')
+    with open('db/reserved''.csv', 'a', newline='') as myCSVFile:
+        fieldnames = ['id', 'movie_id', 'provider_id', 'user_id', 'account_id', 'ticket_code', 'date',
+                      'starttijd', 'eindtijd', 'titel']
+        writer = csv.DictWriter(myCSVFile, fieldnames=fieldnames, delimiter=';')
 
-            writer.writerow({
-                'id': find_next_id('reserved'),
-                'movie_id': movie['id'],
-                'provider_id': movie['user_id'],
-                'user_id': session['user_id'],
-                'account_id': session['account_id'],
-                'ticket_code': generate_code(),
-                'date': datetime.datetime.today().strftime('%d-%m-%Y'),
-                'starttijd': movie['starttijd'],
-                'eindtijd': movie['eindtijd'],
-                'titel': movie['titel']
-            })
-    else:
-        print("Staat er al in")
-
+        writer.writerow({
+            'id': find_next_id('reserved'),
+            'movie_id': movie['id'],
+            'provider_id': movie['user_id'],
+            'user_id': session['user_id'],
+            'account_id': session['account_id'],
+            'ticket_code': generate_code(),
+            'date': datetime.datetime.today().strftime('%d-%m-%Y'),
+            'starttijd': movie['starttijd'],
+            'eindtijd': movie['eindtijd'],
+            'titel': movie['titel']
+        })
     return True
-
-
-def compare_tickets(imdb_id):
-    reserved = []
-
-    with open('db/reserved''.csv', 'r', newline='') as myCSVFile:
-        rows = csv.DictReader(myCSVFile, delimiter=';')
-
-        for row in rows:
-            reserved.append(row['user_id'] + row['movie_id'])
-
-    return reserved
-
 
 def generate_code():
     return ''.join(random.sample(string.ascii_uppercase+string.digits, 8))
