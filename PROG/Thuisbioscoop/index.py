@@ -20,7 +20,6 @@ SESSION_TYPE = 'redis'
 app.config.from_object(__name__)
 QRcode(app)
 
-
 class StatusDenied(Exception):
     pass
 
@@ -43,12 +42,14 @@ def encrypt_string(hash_string):
 
 @app.errorhandler(404)
 def page_not_found(e):
+    """Renders template 404"""
     return render_template('404.html')
 
 
 @app.errorhandler(StatusDenied)
 def redirect_on_status_denied(error):
-    flash("you don't have premision to do that", "danger")
+    """Redirects to URL"""
+    flash("you don't have permision to do that", "danger")
     if 'logged_in' in session and bool(session['logged_in']) is True:
         return redirect('/movies')
     return redirect("/login")
@@ -57,6 +58,7 @@ def redirect_on_status_denied(error):
 # URL routes
 @app.route("/")
 def home():
+    """Renders template on URL"""
     return redirect('/login')
 
 
@@ -83,6 +85,7 @@ def login():
 
 @app.route("/logout")
 def logout():
+    """Clears session and redirects"""
     session.clear()
     return redirect('login')
 
@@ -103,6 +106,7 @@ def register():
 
 @app.route('/accounts')
 def accounts():
+    """Renders template and passes data"""
     check_auth(1)
     user_accounts = get_user_accounts()
     return render_template('accounts.html', accounts=user_accounts, account_count=len(user_accounts))
@@ -110,12 +114,14 @@ def accounts():
 
 @app.route('/account/<account_id>')
 def account_login(account_id):
+    """Sets session and redirects"""
     session['account_id'] = account_id
     return redirect('movies')
 
 
 @app.route('/account/create', methods=['GET', 'POST'])
 def create_account():
+    """Creates user and renders template"""
     check_auth(1)
     form = CreateAccountForm()
     if form.validate_on_submit():
@@ -127,6 +133,7 @@ def create_account():
 
 @app.route('/movies')
 def movies():
+    """Renders template based on type_id"""
     check_auth()
     if int(get_active_user()['type_id']) == 1:
         return render_template('user_movies.html', movies=get_user_movies())
@@ -138,6 +145,7 @@ def movies():
 
 @app.route('/movies/<movie_imdb_id>')
 def add_movie(movie_imdb_id):
+    """Adds movie to CSV based on type_id and redirects to URL"""
     if int(get_active_user()['type_id']) == 1:
         reserve_movie(movie_imdb_id)
         return redirect('/user_tickets')
