@@ -20,11 +20,16 @@ SESSION_TYPE = 'redis'
 app.config.from_object(__name__)
 QRcode(app)
 
+
 class StatusDenied(Exception):
     pass
 
 
 def check_auth(need_type_id=False):
+    """
+        :param need_type_id: Boolean|int
+        :return: None|StatusDenied
+    """
     if 'logged_in' not in session or bool(session['logged_in']) is False or 'user_id' not in session or bool(session['user_id']) is False:
         raise StatusDenied
     if need_type_id is not False:
@@ -35,6 +40,10 @@ def check_auth(need_type_id=False):
 
 # encrypt a string with sha256
 def encrypt_string(hash_string):
+    """
+        :param hash_string: string
+        :return: string
+    """
     sha_signature = \
         hashlib.sha256(hash_string.encode()).hexdigest()
     return sha_signature
@@ -181,6 +190,10 @@ def user_tickets():
 
 
 def get_by_reservation_code(code):
+    """
+        :param code: Boolean
+        :return: List|Boolean
+    """
     with open("db/reserved.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
         for row in rows:
@@ -190,6 +203,10 @@ def get_by_reservation_code(code):
 
 
 def get_user_movies():
+    """
+        get all movies of a user
+        :return List
+    """
     movies = []
     reserved = []
 
@@ -207,6 +224,10 @@ def get_user_movies():
 
 
 def get_active_user():
+    """
+        Get the current logged_in user
+        :return: List|Bool
+    """
     with open("db/users.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
         for row in rows:
@@ -216,6 +237,10 @@ def get_active_user():
 
 
 def get_user(user_id):
+    """
+        Get user by user_id
+        :return: List|Bool
+    """
     with open("db/users.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
         for row in rows:
@@ -225,6 +250,10 @@ def get_user(user_id):
 
 
 def get_account(account_id):
+    """
+        Get account by account_id
+        :return: List|Bool
+    """
     with open("db/user_accounts.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
         for row in rows:
@@ -234,6 +263,11 @@ def get_account(account_id):
 
 
 def check_user_exists(email):
+    """
+        Check if the user exists by email
+        :param email: string
+        :return: Bool|List
+    """
     with open("db/users.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
         for row in rows:
@@ -243,6 +277,14 @@ def check_user_exists(email):
 
 
 def create_user(username, email, password, type_id):
+    """
+        Create a user by params
+        :param username: string
+        :param email: string
+        :param password: string
+        :param type_id: int
+        :return: Boolean
+    """
     with open('db/users.csv', 'a', newline='') as myCSVFile:
         fieldnames = ['id', 'username', 'email', 'password', 'type_id']
         writer = csv.DictWriter(myCSVFile, fieldnames=fieldnames, delimiter=';')
@@ -259,6 +301,10 @@ def create_user(username, email, password, type_id):
 
 
 def get_user_accounts():
+    """
+        get accounts of the current user
+        :return: List
+    """
     accounts = []
     with open("db/user_accounts.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
@@ -269,6 +315,12 @@ def get_user_accounts():
 
 
 def create_user_account(name, user_id):
+    """
+        Create a user account
+        :param name: string
+        :param user_id: int
+        :return: Boolean
+    """
     with open('db/user_accounts.csv', 'a', newline='') as myCSVFile:
         fieldnames = ['id', 'name', 'user_id', 'date_of_birth']
         writer = csv.DictWriter(myCSVFile, fieldnames=fieldnames, delimiter=';')
@@ -282,6 +334,11 @@ def create_user_account(name, user_id):
 
 
 def find_next_id(filename):
+    """
+        Get the next id in line by file
+        :param filename: string
+        :return: int
+    """
     with open("db/" + str(filename) + ".csv") as myCSVFile:
         lines = myCSVFile.readlines()
         if len(lines) <= 1:
@@ -291,12 +348,21 @@ def find_next_id(filename):
 
 
 def get_movies():
+    """
+        Get the movies out of the api
+        :return: List
+    """
     api_url = 'http://api.filmtotaal.nl/filmsoptv.xml?apikey=5r8gfozevu90kas5jb9r0vqksqweujrx&dag=' + datetime.datetime.today().strftime('%d-%m-%Y') + '&sorteer=0'
     response = requests.get(api_url)
     return xmltodict.parse(response.text)
 
 
 def get_movie(movie_imdb_id):
+    """
+        Get movie out of the api by imdb_id
+        :param movie_imdb_id: int
+        :return: list
+    """
     movies = get_movies()
     for movie in movies['filmsoptv']['film']:
         if movie['imdb_id'] == movie_imdb_id:
@@ -340,6 +406,9 @@ def create_provided_movie(movie_imdb_id):
 
 
 def get_provided_movies():
+    """
+        :return: List
+    """
     movies = get_movies()
     imdb_ids = []
     provided_movies = []
@@ -358,6 +427,11 @@ def get_provided_movies():
 
 
 def get_provided_movie(imdb_id):
+    """
+        Get the provided movie by imdb_id
+        :param imdb_id: int
+        :return: List|Boolean
+    """
     with open("db/provider_list.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
         for row in rows:
@@ -367,6 +441,11 @@ def get_provided_movie(imdb_id):
 
 
 def reserve_movie(imdb_id):
+    """
+        Get the reserve movie by imdb_id
+        :param imdb_id: int
+        :return:
+    """
     movie = get_provided_movie(imdb_id)
     with open('db/reserved''.csv', 'a', newline='') as myCSVFile:
         fieldnames = ['id', 'movie_id', 'provider_id', 'user_id', 'account_id', 'ticket_code', 'date',
@@ -388,10 +467,18 @@ def reserve_movie(imdb_id):
     return True
 
 def generate_code():
+    """
+        Generate a random code
+        :return: string
+    """
     return ''.join(random.sample(string.ascii_uppercase+string.digits, 8))
 
 
 def get_reservations():
+    """
+        Get reservations of the current logged in user
+        :return: List
+    """
     reservations = []
     with open("db/reserved.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
@@ -403,6 +490,10 @@ def get_reservations():
 
 
 def get_current_provider_movies():
+    """
+        Get the current movies of the provider of today
+        :return: List
+    """
     provided_movies = []
     with open("db/provider_list.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
@@ -414,7 +505,11 @@ def get_current_provider_movies():
 
 
 def get_users_per_movie(provided_id):
-    """get user count per movie"""
+    """
+        Get user count by movie_id
+        :param provided_id: int
+        :return: int
+    """
     count = 0
     with open("db/reserved.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
@@ -425,8 +520,11 @@ def get_users_per_movie(provided_id):
 
 
 def get_account_tickets():
+    """
+        Get Tickets of the current account
+        :return: List
+    """
     tickets = []
-
     with open("db/reserved.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
         for row in rows:
@@ -437,4 +535,9 @@ def get_account_tickets():
 
 
 def convert_epoch(date):
+    """
+        Convert epoch timestamp to normal timestamp
+        :param date: string
+        :return: string
+    """
     return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(date))
