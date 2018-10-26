@@ -3,3 +3,6 @@ id;username;email;password;type_id
 2;test;test2@test.nl;ecd71870d1963316a97e3ac3408c9835ad8cf0f3c1bc703527c30265534f75ae;2
 3;1test@test.nl;1test@test.nl;ecd71870d1963316a97e3ac3408c9835ad8cf0f3c1bc703527c30265534f75ae;1
 4;1234;test3@test.nl;ecd71870d1963316a97e3ac3408c9835ad8cf0f3c1bc703527c30265534f75ae;2
+5;TestAanbieder;testaanbieder@gmail.com;ecd71870d1963316a97e3ac3408c9835ad8cf0f3c1bc703527c30265534f75ae;2
+6;asd;asd@gmail.com;688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6;1
+7;asdasd;asdasd@gmail.com;5fd924625f6ab16a19cc9807c7c506ae1813490e4ba675f843d5a10e0baacdb8;1
