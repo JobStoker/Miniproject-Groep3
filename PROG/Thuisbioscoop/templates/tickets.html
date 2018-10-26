@@ -1,20 +1,29 @@
 {% extends "layout/layout.html" %}
 
 {% block content %}
-    <div class="row mt-4">
-        {% for ticket in tickets %}
-            <div class="col-4">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ ticket['titel'] }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ ticket['starttijd'] }} <br> tot <br> {{ ticket['eindtijd'] }}</h6>
-                        <p class="card-text">{{ ticket['ticket_code'] }}</p>
-                        <a href="/user_tickets/{{ ticket['ticket_code'] }}" class="card-link">Bekijk ticket</a>
+    {%  if tickets %}
+        <div class="row mt-4">
+            {% for ticket in tickets %}
+                <div class="col-4">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ ticket['titel'] }}</h5>
+                            Naam aanbieder: <b>{{ ticket['provider_name'] }}</b><br /><br />
+                            <h6 class="card-subtitle mb-2 text-muted">{{ ticket['starttijd'] }} <br> tot <br> {{ ticket['eindtijd'] }}</h6>
+                            code: {{ ticket['ticket_code'] }}<br /><br />
+                            <img src="{{ qrcode(ticket['ticket_code']) }}">
+                            <a href="/user_tickets/{{ ticket['ticket_code'] }}" class="card-link">Bekijk ticket</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        {%  endfor %}
-    </div>
+            {%  endfor %}
+        </div>
+
+    {% else %}
+        <div class="mt-4 bg-white p-3">
+            U heeft nog geen tickets!
+        </div>
+    {% endif %}
 {% endblock %}
 
 
