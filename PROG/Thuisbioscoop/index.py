@@ -193,8 +193,7 @@ def get_user_movies():
         with open("db/provider_list.csv", 'r') as myCSVFile:
             rows = csv.DictReader(myCSVFile, delimiter=';')
             for row in rows:
-                timestamp = int(time.mktime(datetime.datetime.strptime(row['starttijd'], "%Y-%m-%d %H:%M:%S").timetuple()))
-                if timestamp <= int(calendar.timegm(time.gmtime())) and row['id'] not in reserved:
+                if row['date'] == datetime.datetime.today().strftime('%d-%m-%Y') and session['user_id'] + row['id'] not in reserved:
                     movies.append(row)
             return movies
 
