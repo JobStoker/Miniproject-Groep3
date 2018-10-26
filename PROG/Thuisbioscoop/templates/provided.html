@@ -4,14 +4,14 @@
     {%  if movies %}
         {% for movie in movies %}
             <div class="jumbotron mt-4">
-                <h1 class="display-6">{{  movie['titel']  }}</h1>
+                <h1 class="display-6">{{  movie['titel'] | safe }}</h1>
                 <hr class="my-4">
                 <div class="row" class="mt-5">
                     <div class="col-md-4">
-                        <img src={{ movie['cover'] }}>
+                        <img src="{{ movie['cover'] }}">
                     </div>
                     <div class="col-md-6">
-                        <p class="synopsis">{{  movie['synopsis'] }}</p>
+                        <p class="synopsis">{{  movie['synopsis'] | safe }}</p>
                     </div>
                 </div>
                 <hr class="my-4">
@@ -21,6 +21,7 @@
                     </div>
                     <div class="col-7">
                         {{ movie['starttijd'] }} / {{ movie['eindtijd'] }}
+                        <span class="float-right">Aantal bezoekers: {{ movie['users_count'] }}</span>
                     </div>
                     <div class="col-2">
 

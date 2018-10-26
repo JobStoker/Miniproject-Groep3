@@ -1,6 +1,11 @@
 {% extends "layout/layout.html" %}
 
 {% block content %}
+
+    <div class="card mt-3 p-2">
+        Totaal aantal bezoekers: {{ reservations | length  }}
+    </div>
+
     <form action="" method="post">
         {{ form.hidden_tag() }}
 
@@ -25,7 +30,7 @@
     </form>
     <div class="row mt-4">
         {% for rservation in reservations %}
-            <div class="col-4">
+            <div class="col-4 mt-3">
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">{{ rservation['titel'] }}</h5>
