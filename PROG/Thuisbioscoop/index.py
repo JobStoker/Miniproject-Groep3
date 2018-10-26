@@ -396,6 +396,8 @@ def get_reservations():
     with open("db/reserved.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
         for row in rows:
+            print(session['user_id'])
+            print(row['provider_id'])
             if row['provider_id'] == session['user_id'] and row['date'] == datetime.datetime.today().strftime('%d-%m-%Y'):
                 row['name'] = get_account(row['account_id'])['name']
                 reservations.append(row)
