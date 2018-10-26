@@ -156,7 +156,6 @@ def validate_movie():
         reserved = get_by_reservation_code(form.code.data)
         if reserved:
             flash('Reservation found', 'success')
-            return 'found'  # TODO return something a page or anything like that
         else:
             flash('Reservation not found', 'danger')
             return redirect(url_for('validate_movie'))
@@ -423,16 +422,6 @@ def get_current_provider_movies():
     return provided_movies
 
 
-def get_provider_history():
-    movie_history = []
-    with open("db/provider_list.csv", 'r') as myCSVFile:
-        rows = csv.DictReader(myCSVFile, delimiter=';')
-        for row in rows:
-            if row['id'] == session['user_id'] and row['date'] != datetime.datetime.today().strftime('%d-%m-%Y'):
-                movie_history.append(row)
-    return provided_movies
-
-
 def get_account_tickets():
     tickets = []
 
@@ -447,4 +436,3 @@ def get_account_tickets():
 
 def convert_epoch(date):
     return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(date))
-

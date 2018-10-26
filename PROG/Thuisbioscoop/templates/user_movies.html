@@ -4,7 +4,7 @@
     {%  if movies %}
         {% for movie in movies %}
             <div class="jumbotron mt-4">
-                <h1 class="display-6">{{  movie['titel']  }}</h1>
+                <h1 class="display-6">{{  movie['titel'] | safe }}</h1>
                 <hr class="my-4">
                 <div class="row" class="mt-5">
                     <div class="col-md-4">
@@ -53,7 +53,7 @@
                     dangerMode: true,
                 }).then(function(isConfirm) {
                     if (isConfirm) {
-                        window.location=Btn_confirm.attr('href');
+                        window.location=event.target.closest("a").getAttribute('href');
                     }
                 });
             });
