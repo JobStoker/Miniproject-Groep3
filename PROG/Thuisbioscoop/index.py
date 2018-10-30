@@ -516,7 +516,7 @@ def get_users_per_movie(provided_id):
     with open("db/reserved.csv", 'r') as myCSVFile:
         rows = csv.DictReader(myCSVFile, delimiter=';')
         for row in rows:
-            if int(row['movie_id']) == int(provided_id):
+            if row['movie_id'] == int(provided_id):
                 count += 1
         return count
 
